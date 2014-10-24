@@ -10,7 +10,7 @@ namespace StereoPair
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Hello, git!");
+			Console.WriteLine("Hello, git!");//
 		}
 	}
 }
