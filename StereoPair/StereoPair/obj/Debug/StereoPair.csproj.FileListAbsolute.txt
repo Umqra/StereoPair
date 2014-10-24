@@ -1,6 +1,0 @@
-C:\Users\Максим\Documents\GitHub\StereoPair\StereoPair\StereoPair\bin\Debug\StereoPair.exe.config
-C:\Users\Максим\Documents\GitHub\StereoPair\StereoPair\StereoPair\bin\Debug\StereoPair.exe
-C:\Users\Максим\Documents\GitHub\StereoPair\StereoPair\StereoPair\bin\Debug\StereoPair.pdb
-C:\Users\Максим\Documents\GitHub\StereoPair\StereoPair\StereoPair\obj\Debug\StereoPair.csprojResolveAssemblyReference.cache
-C:\Users\Максим\Documents\GitHub\StereoPair\StereoPair\StereoPair\obj\Debug\StereoPair.exe
-C:\Users\Максим\Documents\GitHub\StereoPair\StereoPair\StereoPair\obj\Debug\StereoPair.pdb
