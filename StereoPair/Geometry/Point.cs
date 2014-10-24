@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StereoPair
+namespace Geometry
 {
-	class Program
-	{
-		static void Main(string[] args)
-		{
-			
-		}
-	}
+    public class Point
+    {
+    }
 }

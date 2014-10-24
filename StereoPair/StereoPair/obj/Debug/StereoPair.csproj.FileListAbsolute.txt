@@ -1,1 +1,2 @@
 C:\Users\Максим\Documents\GitHub\StereoPair\StereoPair\StereoPair\bin\Debug\StereoPair.exe.config
+C:\Users\Umqra\Documents\GitHub\StereoPair\StereoPair\StereoPair\bin\Debug\StereoPair.exe.config
