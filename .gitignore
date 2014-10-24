@@ -42,6 +42,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-StereoPair/StereoPair/bin/*
-StereoPair/StereoPair/obj/*
-*.exe
+StereoPair/StereoPair/bin/Debug/*
+*.*
+StereoPair/StereoPair/obj/Debug/*
+*.*
