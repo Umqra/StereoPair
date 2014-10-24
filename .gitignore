@@ -43,4 +43,6 @@ Temporary Items
 .apdisk
 
 StereoPair/StereoPair/bin/*
+*.*
 StereoPair/StereoPair/obj/*
+*.*
