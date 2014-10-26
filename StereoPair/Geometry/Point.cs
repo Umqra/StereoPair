@@ -48,7 +48,7 @@ namespace Geometry
 	    public static Point operator / (Point a, double k)
 	    {
 		    if (k.IsEqual(0))
-				throw new ArgumentException("Operator / in class Point: k = 0.");
+				throw new ArgumentException("Can't divide point to 0.0");
 		    return a * (1 / k);
 	    }
 

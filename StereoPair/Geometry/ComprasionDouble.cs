@@ -69,5 +69,23 @@ namespace Geometry
 		{
 			return AreNotEqual(a, b);
 		}
+
+		public static bool IsLessOrEqual(this double a, double b, double eps)
+		{
+			return IsLess(a, b, eps) || IsEqual(a, b, eps);
+		}
+		public static bool IsLessOrEqual(this double a, double b)
+		{
+			return IsLess(a, b) || IsEqual(a, b);
+		}
+
+		public static bool IsGreaterOrEqual(this double a, double b, double eps)
+		{
+			return IsGreater(a, b, eps) || IsEqual(a, b, eps);
+		}
+		public static bool IsGreaterOrEqual(this double a, double b)
+		{
+			return IsGreater(a, b) || IsEqual(a, b);
+		}
 	}
 }
