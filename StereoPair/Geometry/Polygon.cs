@@ -9,12 +9,12 @@ namespace Geometry
 	public class Polygon
 	{
 		public readonly int n;
-		public readonly Point[] vertexes;
+		public readonly Point[] vertices;
 
-		public Polygon (int n_, Point[] vertexes_)
+		public Polygon (int n_, Point[] vertices_)
 		{
 			n = n_;
-			vertexes = vertexes_;
+			vertices = vertices_;
 		}
 
 		public int CheckBelongingOfPoint(Point O)
@@ -22,15 +22,15 @@ namespace Geometry
 			Point RandINFPoint = new Point(1e8, 1e8, 1e8);//TODO: Create normal random point on INF
 			Segment checkSegment = new Segment(O, RandINFPoint);
 			int cnt = 0;
-			for (int i = 0; i < vertexes.Length; i++)
+			for (int i = 0; i < vertices.Length; i++)
 			{
-				Segment currSegment = new Segment(vertexes[i], vertexes[(i + 1) % vertexes.Length]);
+				Segment currSegment = new Segment(vertices[i], vertices[(i + 1) % vertices.Length]);
 				if (currSegment.CheckBelongingOfPoint(O))
 					return 0;
 			}
-			for (int i = 0; i < vertexes.Length; i++)
+			for (int i = 0; i < vertices.Length; i++)
 			{
-				Segment currSegment = new Segment(vertexes[i], vertexes[(i + 1) % vertexes.Length]);
+				Segment currSegment = new Segment(vertices[i], vertices[(i + 1) % vertices.Length]);
 				if (currSegment.OnSameLine(checkSegment))
 					throw new Exception("Segments belongs to the same line");//TODO: fix
 				if (currSegment.FindIntersection(checkSegment) != null)
