@@ -15,7 +15,7 @@ namespace Geometry
 			B = B_;
 		}
 
-		private Line GetLine()
+		public Line GetLine()
 		{
 			return new Line(A, B - A);		
 		}
