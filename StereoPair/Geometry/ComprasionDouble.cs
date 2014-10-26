@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Net.Configuration;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,24 +21,34 @@ namespace Geometry
 			return AreEqual(a, b, Epsilon);
 		}
 
-		public static bool AreLess(double a, double b, double eps)
+		public static bool IsLess(double a, double b, double eps)
 		{
 			return a < b && !AreEqual(a, b);
 		}
 
-		public static bool AreLess(double a, double b)
+		public static bool IsLess(double a, double b)
 		{
-			return AreLess(a, b, Epsilon);
+			return IsLess(a, b, Epsilon);
 		}
 
-		public static bool AreGreater(double a, double b, double eps)
+		public static bool IsGreater(double a, double b, double eps)
 		{
 			return a > b && !AreEqual(a, b);
 		}
 
-		public static bool AreGreater(double a, double b)
+		public static bool IsGreater(double a, double b)
 		{
-			return AreGreater(a, b, Epsilon);
+			return IsGreater(a, b, Epsilon);
+		}
+
+		public static bool AreNotEqual(double a, double b, double eps)
+		{
+			return !AreEqual(a, b, eps);
+		}
+
+		public static bool AreNotEqual(double a, double b)
+		{
+			return AreNotEqual(a, b, Epsilon);
 		}
 	}
 }
