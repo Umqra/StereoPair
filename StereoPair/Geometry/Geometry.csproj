@@ -40,8 +40,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComprasionDouble.cs" />
+    <Compile Include="Line.cs" />
     <Compile Include="Point.cs" />
+    <Compile Include="Polygon.cs" />
+    <Compile Include="Polyhedron.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Segment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
