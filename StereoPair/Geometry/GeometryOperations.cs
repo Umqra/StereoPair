@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -75,5 +76,17 @@ namespace Geometry
 			return r.GetLine().Equals(s.GetLine());
 		}
 
+		public static Point ProjectPointOnPlane(Point P, Plane plane)
+		{
+			return IntersectLinePlane(new Line(P, plane.n), plane);
+		}
+
+		public static Polygon ProjectPolygonOnPlane(Polygon polygon, Plane plane)
+		{
+			List <Point> vertices = new List<Point>();
+			foreach (var point in polygon.vertices)
+				vertices.Add(ProjectPointOnPlane(point, plane));
+			return new Polygon(vertices.Count, vertices.ToArray());
+		}
 	}
 }

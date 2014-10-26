@@ -35,5 +35,15 @@ namespace Geometry
 		{
 			return GeometryOperations.IntersectLinePlane(l, this);
 		}
+
+		public Point ProjectPoint(Point P)
+		{
+			return GeometryOperations.ProjectPointOnPlane(P, this);
+		}
+
+		public Polygon ProjectPolygon(Polygon polygon)
+		{
+			return GeometryOperations.ProjectPolygonOnPlane(polygon, this);
+		}
 	}
 }
