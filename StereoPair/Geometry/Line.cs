@@ -17,7 +17,7 @@ namespace Geometry
 		
 		public bool Parallel(Line a)
 		{
-			return (v.CrossProduct(a.v).GetLength() == 0); //TODO:Equals
+			return (ComprasionDouble.AreEqual(v.CrossProduct(a.v).Length(), 0)); //TODO:Equals
 		}
 		
 		public bool Equals(Line a)
@@ -32,11 +32,11 @@ namespace Geometry
 		/// <returns>True if lines are skew and false otherwise</returns>
 		public bool Skew(Line a)
 		{
-			if (a.v.CrossProduct(v).GetLength() == 0)
+			if (ComprasionDouble.AreEqual(a.v.CrossProduct(v).Length(), 0))
 				return false;
 			Point normal1 = a.v.CrossProduct(v);
 			Point normal2 = a.v.CrossProduct(A - a.A);
-			return (normal1.CrossProduct(normal2).GetLength() != 0);
+			return (ComprasionDouble.AreNotEqual(normal1.CrossProduct(normal2).Length(), 0));
 		}
 
 		/// <summary>
@@ -48,7 +48,7 @@ namespace Geometry
 		{
 			if (this.Skew(a))
 				throw new Exception("Lines aren't skew");
-			return (a.A - A).DotProduct(a.v.CrossProduct(v)) / a.v.CrossProduct(v).GetLength();
+			return (a.A - A).DotProduct(a.v.CrossProduct(v)) / a.v.CrossProduct(v).Length();
 		}
 
 		/// <summary>
@@ -60,7 +60,7 @@ namespace Geometry
 		{
 			if (this.Parallel(a) || this.Equals(a) || this.Skew(a))
 				throw new Exception("Invalid lines");
-			double k = (a.A.CrossProduct(a.v) - A.CrossProduct(a.v)).GetLength() / v.CrossProduct(a.v).GetLength();
+			double k = (a.A.CrossProduct(a.v) - A.CrossProduct(a.v)).Length() / v.CrossProduct(a.v).Length();
 			return A + v * k;
 		}
 	}

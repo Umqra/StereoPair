@@ -15,19 +15,19 @@ namespace Geometry
 			B = B_;
 		}
 
-		private Line getLine()
+		private Line GetLine()
 		{
 			return new Line(A, B - A);		
 		}
 
 		public bool OnSameLine(Segment a)
 		{
-			return getLine().Equals(a.getLine());
+			return GetLine().Equals(a.GetLine());
 		}
 
 		public bool Collinear(Segment a)
 		{
-			return getLine().Parallel(a.getLine());
+			return GetLine().Parallel(a.GetLine());
 		}
 
 		public bool CheckBelongingOfPoint(Point O)
@@ -59,9 +59,9 @@ namespace Geometry
 			}
 			if (this.Collinear(a))
 				return null;
-			if (getLine().Skew(a.getLine()))
+			if (GetLine().Skew(a.GetLine()))
 				return null;
-			Point O = getLine().Intersect(a.getLine());
+			Point O = GetLine().Intersect(a.GetLine());
 			if (this.CheckBelongingOfPoint(O) && a.CheckBelongingOfPoint(O))
 			{
 				return new Segment(O, O);

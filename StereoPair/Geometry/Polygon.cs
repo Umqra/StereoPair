@@ -19,7 +19,8 @@ namespace Geometry
 
 		public int CheckBelongingOfPoint(Point O)
 		{
-			Segment checkSegment = new Segment(O, Point.RandINFPoint);//TODO: Change second point
+			Point RandINFPoint = new Point(1e8, 1e8, 1e8);//TODO: Create normal random point on INF
+			Segment checkSegment = new Segment(O, RandINFPoint);
 			int cnt = 0;
 			for (int i = 0; i < vertexes.Length; i++)
 			{
