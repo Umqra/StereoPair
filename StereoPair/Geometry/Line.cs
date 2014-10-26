@@ -8,7 +8,7 @@ namespace Geometry
 {
 	public class Line
 	{
-		private Point A, v;
+		public readonly Point A, v;
 		public Line(Point A_, Point v_)
 		{
 			A = A_;

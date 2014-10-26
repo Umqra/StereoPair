@@ -8,7 +8,7 @@ namespace Geometry
 {
 	public class Segment
 	{
-		private Point A, B;
+		public readonly Point A, B;
 		public Segment(Point A_, Point B_)
 		{
 			A = A_;

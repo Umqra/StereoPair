@@ -8,8 +8,8 @@ namespace Geometry
 {
 	public class Polygon
 	{
-		public int n;
-		public Point[] vertexes;
+		public readonly int n;
+		public readonly Point[] vertexes;
 
 		public Polygon (int n_, Point[] vertexes_)
 		{

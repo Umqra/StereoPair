@@ -8,8 +8,8 @@ namespace Geometry
 {
 	public class Polyhedron
 	{
-		public int n;
-		public Polygon[] faces;
+		public readonly int n;
+		public readonly Polygon[] faces;
 
 		public Polyhedron(int n_, Polygon[] faces_)
 		{
