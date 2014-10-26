@@ -21,22 +21,31 @@ namespace Geometry
 			return AreEqual(a, b, Epsilon);
 		}
 
-		public static bool IsLess(double a, double b, double eps)
+		public static bool IsEqual(this double a, double b, double eps)
+		{
+			return AreEqual(a, b, eps);
+		}
+		public static bool IsEqual(this double a, double b)
+		{
+			return AreEqual(a, b);
+		}
+
+		public static bool IsLess(this double a, double b, double eps)
 		{
 			return a < b && !AreEqual(a, b);
 		}
 
-		public static bool IsLess(double a, double b)
+		public static bool IsLess(this double a, double b)
 		{
 			return IsLess(a, b, Epsilon);
 		}
 
-		public static bool IsGreater(double a, double b, double eps)
+		public static bool IsGreater(this double a, double b, double eps)
 		{
 			return a > b && !AreEqual(a, b);
 		}
 
-		public static bool IsGreater(double a, double b)
+		public static bool IsGreater(this double a, double b)
 		{
 			return IsGreater(a, b, Epsilon);
 		}
@@ -49,6 +58,16 @@ namespace Geometry
 		public static bool AreNotEqual(double a, double b)
 		{
 			return AreNotEqual(a, b, Epsilon);
+		}
+
+		public static bool IsNotEqual(this double a, double b, double eps)
+		{
+			return AreNotEqual(a, b, eps);
+		}
+
+		public static bool IsNotEqual(this double a, double b)
+		{
+			return AreNotEqual(a, b);
 		}
 	}
 }

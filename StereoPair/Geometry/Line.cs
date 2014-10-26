@@ -36,7 +36,7 @@ namespace Geometry
 				return false;
 			Point normal1 = a.v.CrossProduct(v);
 			Point normal2 = a.v.CrossProduct(A - a.A);
-			return (normal1.CrossProduct(normal2).Length().AreNotEqual(0));
+			return (normal1.CrossProduct(normal2).Length().IsNotEqual(0));
 		}
 
 		/// <summary>
