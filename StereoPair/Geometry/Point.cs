@@ -47,7 +47,7 @@ namespace Geometry
 
 	    public static Point operator / (Point a, double k)
 	    {
-		    if (ComprasionDouble.AreEqual(k, 0))
+		    if (k.IsEqual(0))
 				throw new ArgumentException("Operator / in class Point: k = 0.");
 		    return a * (1 / k);
 	    }
@@ -83,16 +83,12 @@ namespace Geometry
 	    }
 	    public bool IsNullVector()
 	    {
-		    return ComprasionDouble.AreEqual(x, 0) &&
-					ComprasionDouble.AreEqual(y, 0) &&
-					ComprasionDouble.AreEqual(z, 0);
+		    return x.IsEqual(0) && y.IsEqual(0) && z.IsEqual(0);
 	    }
 
 	    public bool Equals(Point a)
 	    {
-		    return ComprasionDouble.AreEqual(x, a.x) &&
-					ComprasionDouble.AreEqual(y, a.y) &&
-					ComprasionDouble.AreEqual(z, a.z);
+		    return x.IsEqual(a.x) && y.IsEqual(a.y) && z.IsEqual(a.z);
 	    }
 
 	    public override bool Equals(object obj)
