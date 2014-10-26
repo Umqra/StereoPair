@@ -32,7 +32,7 @@ namespace Geometry
 
 		public bool CheckBelongingOfPoint(Point O)
 		{
-			return ((A - O).DotProduct(B - O) < 0);
+			return ((A - O).DotProduct(B - O).Less(0));
 		}
 
 		/// <summary>

@@ -17,7 +17,7 @@ namespace Geometry
 		
 		public bool Parallel(Line a)
 		{
-			return (ComprasionDouble.AreEqual(v.CrossProduct(a.v).Length(), 0)); //TODO:Equals
+			return (v.CrossProduct(a.v).Length().IsEqual(0)); //TODO:Equals
 		}
 		
 		public bool Equals(Line a)
@@ -32,11 +32,11 @@ namespace Geometry
 		/// <returns>True if lines are skew and false otherwise</returns>
 		public bool Skew(Line a)
 		{
-			if (ComprasionDouble.AreEqual(a.v.CrossProduct(v).Length(), 0))
+			if (a.v.CrossProduct(v).Length().IsEqual(0))
 				return false;
 			Point normal1 = a.v.CrossProduct(v);
 			Point normal2 = a.v.CrossProduct(A - a.A);
-			return (ComprasionDouble.AreNotEqual(normal1.CrossProduct(normal2).Length(), 0));
+			return (normal1.CrossProduct(normal2).Length().AreNotEqual(0));
 		}
 
 		/// <summary>
