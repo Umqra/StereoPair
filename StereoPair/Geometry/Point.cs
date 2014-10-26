@@ -96,6 +96,11 @@ namespace Geometry
 		    return GeometryOperations.PointOnPlane(this, a);
 	    }
 
+	    public bool OnRay(Ray r)
+	    {
+		    return GeometryOperations.PointOnRay(this, r);
+	    }
+
 	    public override bool Equals(object obj)
 	    {
 		    if (obj == null || GetType() != obj.GetType())

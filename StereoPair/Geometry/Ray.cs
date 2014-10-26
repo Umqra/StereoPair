@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Geometry
 {
-	class Ray
+	public class Ray
 	{
 		public readonly Point A, v;
 
