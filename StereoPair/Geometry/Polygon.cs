@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Geometry
 {
-	class Polygon
+	public class Polygon
 	{
 		public int n;
 		public Point[] vertexes;

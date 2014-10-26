@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Geometry
 {
-	class Polyhedron
+	public class Polyhedron
 	{
 		public int n;
 		public Polygon[] faces;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Geometry
 {
-	class Segment
+	public class Segment
 	{
 		private Point A, B;
 		public Segment(Point A_, Point B_)

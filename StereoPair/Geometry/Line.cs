@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Geometry
 {
-	class Line
+	public class Line
 	{
 		private Point A, v;
 		public Line(Point A_, Point v_)
