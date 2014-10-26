@@ -91,6 +91,11 @@ namespace Geometry
 		    return x.IsEqual(a.x) && y.IsEqual(a.y) && z.IsEqual(a.z);
 	    }
 
+	    public bool OnPlane(Plane a)
+	    {
+		    return GeometryOperations.PointOnPlane(this, a);
+	    }
+
 	    public override bool Equals(object obj)
 	    {
 		    if (obj == null || GetType() != obj.GetType())
