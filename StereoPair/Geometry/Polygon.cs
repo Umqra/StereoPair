@@ -41,6 +41,20 @@ namespace Geometry
 			return GeometryOperations.CentralProjectionPolygonOnPlane(this, plane, center);
 		}
 
+		public Point GetRandomPointInside()
+		{
+			for (int i = 0; i < n; i++)
+			{
+				Point A = vertices[i];
+				Point B = vertices[(i + 1) % n];
+				Point C = vertices[(i + 2) % n];
+				Point O = (A + B + C) / 3;
+				if (!IsInside(O) && !IsOnSide(O))
+					return O;
+			}
+			throw new Exception("Point is not found");
+		}
+
 		public Point2D[] ConvertTo2D(Plane currPlane, Point e1, Point e2)
 		{
 			//if (vertices[0].Equals(vertices[1]) || vertices[1].Equals(vertices[2]) || (vertices[1] - vertices[0]).CrossProduct(vertices[2] - vertices[1]).Length().IsEqual(0))
