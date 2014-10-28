@@ -81,7 +81,7 @@ namespace Geometry
 			}
 			if (sumAngle.IsEqual(0))
 				return false;
-			else if (Math.Abs(sumAngle).IsEqual(2 * Math.PI)s)
+			else if (Math.Abs(sumAngle).IsEqual(2 * Math.PI))
 				return true;
 			else
 				throw new Exception("Strange angle " + sumAngle);

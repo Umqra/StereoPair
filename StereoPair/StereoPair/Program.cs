@@ -13,12 +13,12 @@ namespace StereoPair
 	class Program
 	{
 		static private int sizeX = 900, sizeY = 500;
-		private static Camera camera;
+		static Camera camera;
 
 		public static void DrawPolyhedronToBitmap(Bitmap image, Geometry.Polyhedron polyhedron)
 		{
 			var graphics = Graphics.FromImage(image);
-			Point2D[][] frames = сamera.GetFrames(polyhedron);
+			Point2D[][] frames = camera.GetFrames(polyhedron);
 			for (int i = 0; i < frames.Length; i++)
 			{
 				for (int j = 0; j < frames[i].Length; j++)

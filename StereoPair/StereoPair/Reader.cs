@@ -20,9 +20,9 @@ namespace StereoPair
 				int[] values = lines[i].Split(' ').Select(int.Parse).ToArray();
 				int amountOfVertices = values[0];
 				Point[] vertices = new Point[amountOfVertices];
-				for (int j = 1; j < amountOfVertices; j += 3)
+				for (int j = 0; j < amountOfVertices; j++)
 				{
-					vertices[j] = new Point(values[j], values[j + 1], values[j + 2]);
+					vertices[j] = new Point(values[3 * j + 1], values[3 * j + 2], values[3 * j + 3]);
 				}
 				polygons.Add(new Polygon(amountOfFaces, vertices));
 			}

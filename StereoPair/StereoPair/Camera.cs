@@ -19,6 +19,14 @@ namespace StereoPair
 			plane = _plane;
 		}
 
+		public Camera(Point _position)
+		{
+			position = _position;
+			Point P = GetDirectionOfView().Normalize(50);//TODO: fix constant
+			Point v = GetDirectionOfView().Normalize(1);
+			plane = new Plane(P, v);
+		}
+
 		public Point GetDirectionOfView()
 		{
 			return new Point(0, 0, 0) - position;
