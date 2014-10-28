@@ -24,7 +24,7 @@ namespace StereoPair
 				{
 					vertices[j] = new Point(values[3 * j + 1], values[3 * j + 2], values[3 * j + 3]);
 				}
-				polygons.Add(new Polygon(amountOfFaces, vertices));
+				polygons.Add(new Polygon(amountOfVertices, vertices));
 			}
 			return new Polyhedron(amountOfFaces, polygons.ToArray());
 		}
