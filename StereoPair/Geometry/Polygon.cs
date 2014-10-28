@@ -32,17 +32,13 @@ namespace Geometry
 			return new Plane(vertices[0], e[0], e[1]);	
 		}
 
-		public Polygon OrthogonalProjectToPlane(Plane plane)
+		public Polygon OrthogonalProjectionToPlane(Plane plane)
 		{
-			return GeometryOperations.OrthogonalProjectPolygonOnPlane(this, plane);
-		}
-		public Polygon CenterProjectToPlane(Plane plane)
-		{
-<<<<<<< HEAD
 			return GeometryOperations.OrthogonalProjectionPolygonOnPlane(this, plane);
-=======
-			return GeometryOperations.CenterProjectPolygonOnPlane(this, plane);
->>>>>>> origin/master
+		}
+		public Polygon CentralProjectionToPlane(Plane plane, Point center)
+		{
+			return GeometryOperations.CentralProjectionPolygonOnPlane(this, plane, center);
 		}
 
 		public Point2D[] ConvertTo2D(Point e1, Point e2)

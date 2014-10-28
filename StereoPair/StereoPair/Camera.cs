@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,14 +24,15 @@ namespace StereoPair
 			Point xBasis, yBasis;
 			foreach (var polygon in polyhedron.faces)
 			{
-				if (this.IsVisible(polyhedron, polygon))
-					frames.Add(polygon.ProjectToPlane(plane).ConvertTo2D());
+				//if (this.IsVisible(polyhedron, polygon))
+					//frames.Add(polygon.CentralProjectionToPlane(plane, position).ConvertTo2D());
 			}
+			throw new NotImplementedException();
 		}
 
 		private bool IsVisible(Polyhedron polyhedron, Polygon polygon)
 		{
-
+			throw new NotImplementedException();
 		}
 	}
 }

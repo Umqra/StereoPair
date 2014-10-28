@@ -17,7 +17,7 @@ namespace StereoPair
 		{
 			var image = new Bitmap(sizeX, sizeY);
 			var graphics = Graphics.FromImage(image);
-			Geometry.Point2D[] vertices = polygon.ConvertTo2D();
+			Geometry.Point2D[] vertices = null;//polygon.ConvertTo2D();
 			for (int i = 0; i < vertices.Length; i++)
 			{
 				Geometry.Point2D a = vertices[i];
