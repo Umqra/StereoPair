@@ -49,7 +49,7 @@ namespace Geometry
 				Point B = vertices[(i + 1) % n];
 				Point C = vertices[(i + 2) % n];
 				Point O = (A + B + C) / 3;
-				if (!IsInside(O) && !IsOnSide(O))
+				if (IsInside(O))
 					return O;
 			}
 			throw new Exception("Point is not found");
