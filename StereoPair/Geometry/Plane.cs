@@ -51,5 +51,10 @@ namespace Geometry
 		{
 			return GeometryOperations.OrthogonalProjectionPolygonOnPlane(polygon, this);
 		}
+
+		public Point GetSecondBasisVector(Point firstBasis)
+		{
+			return firstBasis.CrossProduct(n);
+		}
 	}
 }

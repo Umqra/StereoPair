@@ -134,5 +134,15 @@ namespace Geometry
 	    {
 		    return GeometryOperations.GetAngle(this, v);
 	    }
+
+	    public Point OrthogonalProjectionOnPlane(Plane plane)
+	    {
+		    return GeometryOperations.OrthogonalProjectionPointOnPlane(this, plane);
+	    }
+		public Point CentralProjectionOnPlane(Plane plane, Point center)
+		{
+			return GeometryOperations.CentralProjectionPointOnPlane(this, plane, center);
+		}
+
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Geometry
 {
-	static class GeometryOperations
+	public static class GeometryOperations
 	{
 		public static bool PointOnPlane(Point A, Plane p)
 		{
@@ -91,13 +91,25 @@ namespace Geometry
 				vertices.Add(OrthogonalProjectionPointOnPlane(point, plane));
 			return new Polygon(vertices.Count, vertices.ToArray());
 		}
-
 		public static Polygon CentralProjectionPolygonOnPlane(Polygon polygon, Plane plane, Point center)
 		{
 			List<Point> vertices = new List<Point>();
 			foreach (var point in polygon.vertices)
 				vertices.Add(CentralProjectionPointOnPlane(point, plane, center));
 			return new Polygon(vertices.Count, vertices.ToArray());
+		}
+
+		public static Point OrthogonalProjectionVectorOnPlane(Point v, Plane plane)
+		{
+			Point A = new Point(0, 0, 0);
+			Point B = v;
+			return B.OrthogonalProjectionOnPlane(plane) - A.OrthogonalProjectionOnPlane(plane);
+		}
+		public static Point CentralProjectionVectorOnPlane(Point v, Plane plane, Point center)
+		{
+			Point A = new Point(0, 0, 0);
+			Point B = v;
+			return B.CentralProjectionOnPlane(plane, center) - A.CentralProjectionOnPlane(plane, center);
 		}
 
 		public static double GetAngle(Point v1, Point v2)
