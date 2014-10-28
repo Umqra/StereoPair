@@ -76,15 +76,27 @@ namespace Geometry
 			return r.GetLine().Equals(s.GetLine());
 		}
 
-		public static Point ProjectPointOnPlane(Point P, Plane plane)
+		public static Point OrthogonalProjectionPointOnPlane (Point P, Plane plane)
 		{
 			return IntersectLinePlane(new Line(P, plane.n), plane);
 		}
-		public static Polygon ProjectPolygonOnPlane(Polygon polygon, Plane plane)
+		public static Point CentralProjectionPointOnPlane(Point P, Plane plane, Point center)
+		{
+			return IntersectLinePlane(new Line(center, P - center), plane);
+		}
+		public static Polygon OrthogonalProjectionPolygonOnPlane(Polygon polygon, Plane plane)
 		{
 			List <Point> vertices = new List<Point>();
 			foreach (var point in polygon.vertices)
-				vertices.Add(ProjectPointOnPlane(point, plane));
+				vertices.Add(OrthogonalProjectionPointOnPlane(point, plane));
+			return new Polygon(vertices.Count, vertices.ToArray());
+		}
+
+		public static Polygon CentralProjectionPolygonOnPlane(Polygon polygon, Plane plane, Point center)
+		{
+			List<Point> vertices = new List<Point>();
+			foreach (var point in polygon.vertices)
+				vertices.Add(CentralProjectionPointOnPlane(point, plane, center));
 			return new Polygon(vertices.Count, vertices.ToArray());
 		}
 
