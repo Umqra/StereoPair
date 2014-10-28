@@ -48,7 +48,7 @@ namespace StereoPair
 			foreach (var polygon in polyhedron.faces)
 			{
 				if (this.IsVisible(polyhedron, polygon))
-					frames.Add(polygon.CentralProjectionToPlane(plane, position).ConvertTo2D(xBasis, yBasis));
+					frames.Add(polygon.CentralProjectionToPlane(plane, position).ConvertTo2D(plane, xBasis, yBasis));
 			}
 			return frames.ToArray();
 		}
@@ -59,12 +59,14 @@ namespace StereoPair
 			{
 				foreach (var face in polyhedron.faces)
 				{
-					Plane plane = face.GetPlane();
+					Plane facePlane = face.GetPlane();
 					foreach (var vertex in face.vertices)
 					{
 						Segment viewSegment = new Segment(position, vertex);
-						Point interPoint = plane.Intersect(viewSegment.GetLine()); //TODO: something wrong...
-						if (!face.IsInside(interPoint) || !viewSegment.CheckBelongingOfPoint(interPoint))
+						if (facePlane.CheckBelongingOfLine(viewSegment.GetLine()))
+							continue;
+						Point interPoint = facePlane.Intersect(viewSegment.GetLine()); //TODO: something wrong... But now it seems to be ok
+						if (face.IsInside(interPoint) && viewSegment.CheckBelongingOfPoint(interPoint))
 							return false;
 					}
 				}
