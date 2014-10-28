@@ -89,7 +89,7 @@ namespace Geometry
 			double sumAngle = 0;
 			for (int i = 0; i < n; i++)
 			{
-				double currAngle = vertices[(i + 1) % n].GetAngle(vertices[i]);
+				double currAngle = (vertices[(i + 1) % n] - O).GetAngle(vertices[i] - O);
 				sumAngle += currAngle;
 			}
 			if (sumAngle.IsEqual(0))
