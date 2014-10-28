@@ -52,6 +52,14 @@ namespace Geometry
 		    return a * (1 / k);
 	    }
 
+	    public Point2D ConvertTo2D(Plane p, Point xBasis, Point yBasis)
+	    {
+		    Point v = this - p.P;
+		    double xCoord = v.DotProduct(xBasis) / xBasis.Length() / xBasis.Length();
+			double yCoord = v.DotProduct(yBasis) / yBasis.Length() / yBasis.Length();
+		    return new Point2D(xCoord, yCoord);
+	    }
+
 	    public Point Normalize(int len)
 	    {
 		    if (ComprasionDouble.AreEqual(len, 0))

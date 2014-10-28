@@ -80,7 +80,6 @@ namespace Geometry
 		{
 			return IntersectLinePlane(new Line(P, plane.n), plane);
 		}
-
 		public static Polygon ProjectPolygonOnPlane(Polygon polygon, Plane plane)
 		{
 			List <Point> vertices = new List<Point>();
