@@ -20,7 +20,7 @@ namespace Geometry
 
 		public Point[] GetBasis()
 		{
-			return new Point[] {vertices[1] - vertices[0], vertices[2] - vertices[1]};
+			return new Point[] {(vertices[1] - vertices[0]).Normalize(1), (vertices[2] - vertices[1]).Normalize(1)};
 		}
 
 		public Plane GetPlane()
