@@ -39,7 +39,7 @@ namespace Geometry
 			Point2D[] result = new Point2D[vertices.Length];
 			for (int i = 0; i < vertices.Length; i++)
 			{
-				result = vertices.ConvertTo2D(e1, e2);
+				result[i] = vertices[i].ConvertTo2D(currPlane, e1, e2);
 			}
 			return result;
 		}
