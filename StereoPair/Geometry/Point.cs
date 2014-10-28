@@ -129,5 +129,10 @@ namespace Geometry
 	    {
 		    return String.Format("x = {0}, y = {1}, z = {2}\n", x, y, z);
 	    }
+
+	    public double GetAngle(Point v)
+	    {
+		    return GeometryOperations.GetAngle(this, v);
+	    }
     }
 }

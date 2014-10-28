@@ -87,5 +87,10 @@ namespace Geometry
 				vertices.Add(ProjectPointOnPlane(point, plane));
 			return new Polygon(vertices.Count, vertices.ToArray());
 		}
+
+		public static double GetAngle(Point v1, Point v2)
+		{
+			return Math.Atan2(v1.CrossProduct(v2).Length(), v1.DotProduct(v2));
+		}
 	}
 }
