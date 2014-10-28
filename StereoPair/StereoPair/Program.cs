@@ -20,7 +20,7 @@ namespace StereoPair
 			var graphics = Graphics.FromImage(image);
 			Point2D[][] frames = camera.GetFrames(polyhedron);
 			for (int i = 0; i < frames.Length; i++)
-			{
+			{	
 				for (int j = 0; j < frames[i].Length; j++)
 				{
 					Geometry.Point2D a = frames[i][j];
@@ -40,7 +40,8 @@ namespace StereoPair
 				Text = "Stereo Pair",
 				ClientSize = new Size(sizeX, sizeY)
 			};
-			form.Controls.Add(new PictureBox { Image = image, Dock = DockStyle.Fill, SizeMode = PictureBoxSizeMode.CenterImage });
+			form.Controls.Add(new PictureBox { Image = image, Location = new System.Drawing.Point(10, 10)});
+			form.Controls.Add(new PictureBox { Image = image, Location = new System.Drawing.Point(sizeX + 50, 10)});
 			form.ShowDialog();
 		}
 	}

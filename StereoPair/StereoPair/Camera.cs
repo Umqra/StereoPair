@@ -60,16 +60,14 @@ namespace StereoPair
 				foreach (var face in polyhedron.faces)
 				{
 					Plane facePlane = face.GetPlane();
-					foreach (var vertex in face.vertices)
-					{
-						Segment viewSegment = new Segment(position, vertex);
-						if (facePlane.CheckBelongingOfLine(viewSegment.GetLine()))
-							continue;
-						Point interPoint = facePlane.Intersect(viewSegment.GetLine()); //TODO: something wrong... But now it seems to be ok
-						if (face.IsInside(interPoint) && viewSegment.CheckBelongingOfPoint(interPoint))
-							return false;
+					Point vertex = face.GetRandomPointInside();
+					Segment viewSegment = new Segment(position, vertex);
+					if (facePlane.CheckBelongingOfLine(viewSegment.GetLine()))
+						continue;
+					Point interPoint = facePlane.Intersect(viewSegment.GetLine()); //TODO: something wrong... But now it seems to be ok
+					if (face.IsInside(interPoint) && viewSegment.CheckBelongingOfPoint(interPoint))
+						return false;
 					}
-				}
 			}
 			return true;
 		}
