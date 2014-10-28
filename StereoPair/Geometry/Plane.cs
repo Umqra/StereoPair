@@ -44,12 +44,12 @@ namespace Geometry
 
 		public Point ProjectPoint(Point P)
 		{
-			return GeometryOperations.ProjectPointOnPlane(P, this);
+			return GeometryOperations.OrthogonalProjectionPointOnPlane(P, this);
 		}
 
 		public Polygon ProjectPolygon(Polygon polygon)
 		{
-			return GeometryOperations.ProjectPolygonOnPlane(polygon, this);
+			return GeometryOperations.OrthogonalProjectionPolygonOnPlane(polygon, this);
 		}
 	}
 }

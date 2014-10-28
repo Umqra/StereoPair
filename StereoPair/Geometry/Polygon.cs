@@ -31,7 +31,7 @@ namespace Geometry
 
 		public Polygon ProjectToPlane(Plane plane)
 		{
-			return GeometryOperations.ProjectPolygonOnPlane(this, plane);
+			return GeometryOperations.OrthogonalProjectionPolygonOnPlane(this, plane);
 		}
 
 		public Point2D[] ConvertTo2D(Point e1, Point e2)
