@@ -29,6 +29,11 @@ namespace Geometry
 			return new Plane(vertices[0], e[0], e[1]);	
 		}
 
+		public Polygon ProjectToPlane(Plane plane)
+		{
+			return GeometryOperations.ProjectPolygonOnPlane(this, plane);
+		}
+
 		public Point2D[] ConvertTo2D(Point e1, Point e2)
 		{
 			if (vertices[0].Equals(vertices[1]) || vertices[1].Equals(vertices[2]) || (vertices[1] - vertices[0]).CrossProduct(vertices[2] - vertices[1]).Length().IsEqual(0))
