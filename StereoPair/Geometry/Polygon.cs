@@ -17,15 +17,18 @@ namespace Geometry
 			n = n_;
 			vertices = vertices_;
 		}
-
-		public Point[] GetBasis()
+		/// <summary>
+		/// Returns ABSOLUTELY random basis, which can be not orthonormal
+		/// </summary>
+		/// <returns></returns>
+		public Point[] GetRandomBasis()
 		{
 			return new Point[] {(vertices[1] - vertices[0]).Normalize(1), (vertices[2] - vertices[1]).Normalize(1)};
 		}
 
 		public Plane GetPlane()
 		{
-			Point[] e = GetBasis();
+			Point[] e = GetRandomBasis();
 			return new Plane(vertices[0], e[0], e[1]);	
 		}
 
