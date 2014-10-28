@@ -40,8 +40,8 @@ namespace StereoPair
 				Text = "Stereo Pair",
 				ClientSize = new Size(sizeX, sizeY)
 			};
-			form.Controls.Add(new PictureBox { Image = image, Location = new System.Drawing.Point(10, 10)});
-			form.Controls.Add(new PictureBox { Image = image, Location = new System.Drawing.Point(sizeX + 50, 10)});
+			form.Controls.Add(new PictureBox { Image = image, Dock = DockStyle.Fill, SizeMode = PictureBoxSizeMode.CenterImage});
+//			form.Controls.Add(new PictureBox { Image = image, Dock = DockStyle.Right, SizeMode = PictureBoxSizeMode.CenterImage});
 			form.ShowDialog();
 		}
 	}

@@ -26,12 +26,12 @@ namespace Geometry
 		{
 			return PointOnLine(A, r.GetLine()) && (A - r.A).DotProduct(r.v).IsGreaterOrEqual(0);
 		}
-
 		public static bool PointOnSegment(Point A, Segment s)
 		{
 			return PointOnRay(A, new Ray(s.A, s.B - s.A)) &&
 					PointOnRay(A, new Ray(s.B, s.A - s.B));
 		}
+
 		public static Point IntersectLinePlane(Line l, Plane p)
 		{
 			if (p.CheckBelongingOfLine(l))
