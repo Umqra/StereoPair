@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="ComprasionDouble.cs" />
     <Compile Include="GeometryOperations.cs" />
+    <Compile Include="HalfInterval.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Plane.cs" />
     <Compile Include="Point.cs" />
