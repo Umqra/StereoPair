@@ -17,21 +17,32 @@ namespace Geometry
 			n = n_;
 			vertices = vertices_;
 		}
-
-		public Point[] GetBasis()
+		/// <summary>
+		/// Returns ABSOLUTELY random basis, which can be not orthonormal
+		/// </summary>
+		/// <returns></returns>
+		public Point[] GetRandomBasis()
 		{
 			return new Point[] {(vertices[1] - vertices[0]).Normalize(1), (vertices[2] - vertices[1]).Normalize(1)};
 		}
 
 		public Plane GetPlane()
 		{
-			Point[] e = GetBasis();
+			Point[] e = GetRandomBasis();
 			return new Plane(vertices[0], e[0], e[1]);	
 		}
 
-		public Polygon ProjectToPlane(Plane plane)
+		public Polygon OrthogonalProjectToPlane(Plane plane)
 		{
+			return GeometryOperations.OrthogonalProjectPolygonOnPlane(this, plane);
+		}
+		public Polygon CenterProjectToPlane(Plane plane)
+		{
+<<<<<<< HEAD
 			return GeometryOperations.OrthogonalProjectionPolygonOnPlane(this, plane);
+=======
+			return GeometryOperations.CenterProjectPolygonOnPlane(this, plane);
+>>>>>>> origin/master
 		}
 
 		public Point2D[] ConvertTo2D(Point e1, Point e2)
