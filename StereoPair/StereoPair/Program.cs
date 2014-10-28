@@ -13,32 +13,35 @@ namespace StereoPair
 	class Program
 	{
 		static private int sizeX = 900, sizeY = 500;
-		public static void DrawPolygon(Geometry.Polygon polygon)
+		private static Camera camera;
+
+		public static void DrawPolyhedronToBitmap(Bitmap image, Geometry.Polyhedron polyhedron)
 		{
-			var image = new Bitmap(sizeX, sizeY);
 			var graphics = Graphics.FromImage(image);
-			Geometry.Point2D[] vertices = null;//polygon.ConvertTo2D();
-			for (int i = 0; i < vertices.Length; i++)
+			Point2D[][] frames = сamera.GetFrames(polyhedron);
+			for (int i = 0; i < frames.Length; i++)
 			{
-				Geometry.Point2D a = vertices[i];
-				Geometry.Point2D b = vertices[(i + 1) % vertices.Length];
+				for (int j = 0; j < frames[i].Length; j++)
+				{
+					Geometry.Point2D a = frames[i][j];
+					Geometry.Point2D b = frames[i][(j + 1) % frames[i].Length];
 
-				graphics.DrawLine(new Pen(Brushes.Blue), new PointF((float)a.x + sizeX / 2f, -(float)a.y + sizeY / 2f), new PointF((float)b.x + sizeX / 2f, -(float)b.y + sizeY / 2f));
+					graphics.DrawLine(new Pen(Brushes.Blue), new PointF((float)a.x + sizeX / 2f, -(float)a.y + sizeY / 2f), new PointF((float)b.x + sizeX / 2f, -(float)b.y + sizeY / 2f));
+				}
 			}
-			var form = new Form
-			{
-				Text = "Harter–Heighway dragon",
-				ClientSize = new Size(sizeX, sizeY)
-			};
-
-			//Добавляем специальный элемент управления PictureBox, который умеет отображать созданное нами изображение.
-			form.Controls.Add(new PictureBox { Image = image, Dock = DockStyle.Fill, SizeMode = PictureBoxSizeMode.CenterImage });
-			form.ShowDialog();
 		}
 		static void Main(string[] args)
 		{
-			DrawPolygon(new Polygon(3, new []{new Point(0, 0, 0), new Point(100, 0, 0), new Point(100, 200, 0)}));
-			Console.WriteLine("Hello, git!");//
+			camera = new Camera(new Point(0, 0, 300));
+			var image = new Bitmap(sizeX, sizeY);
+			DrawPolyhedronToBitmap(image, Reader.ReadData("data.txt"));
+			var form = new Form
+			{
+				Text = "Stereo Pair",
+				ClientSize = new Size(sizeX, sizeY)
+			};
+			form.Controls.Add(new PictureBox { Image = image, Dock = DockStyle.Fill, SizeMode = PictureBoxSizeMode.CenterImage });
+			form.ShowDialog();
 		}
 	}
 }
