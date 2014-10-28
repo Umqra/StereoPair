@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,28 +18,61 @@ namespace Geometry
 			vertices = vertices_;
 		}
 
-		public int CheckBelongingOfPoint(Point O)
+		public Point[] GetBasis()
 		{
-			Point RandINFPoint = new Point(1e8, 1e8, 1e8);//TODO: Create normal random point on INF
-			Segment checkSegment = new Segment(O, RandINFPoint);
-			int cnt = 0;
+			return new Point[] {vertices[1] - vertices[0], vertices[2] - vertices[1]};
+		}
+
+		public Plane GetPlane()
+		{
+			Point[] e = GetBasis();
+			return new Plane(vertices[0], e[0], e[1]);	
+		}
+
+		public Point2D[] ConvertTo2D(Point e1, Point e2)
+		{
+			if (vertices[0].Equals(vertices[1]) || vertices[1].Equals(vertices[2]) || (vertices[1] - vertices[0]).CrossProduct(vertices[2] - vertices[1]).Length().IsEqual(0))
+				throw new NotImplementedException("Polygon is bad");
+			Plane currPlane = new Plane(vertices[0], vertices[1] - vertices[0], vertices[2] - vertices[1]);
+			if (e1.CrossProduct(e2).Length().IsEqual(0) || !e1.CrossProduct(e2).CrossProduct(currPlane.n).Length().IsEqual(0))
+				throw new Exception("Bad basis");
+			Point2D[] result = new Point2D[vertices.Length];
+			for (int i = 0; i < vertices.Length; i++)
+			{
+				result = vertices.ConvertTo2D(e1, e2);
+			}
+			return result;
+		}
+
+		public bool IsOnSide(Point O)
+		{
 			for (int i = 0; i < vertices.Length; i++)
 			{
 				Segment currSegment = new Segment(vertices[i], vertices[(i + 1) % vertices.Length]);
 				if (currSegment.CheckBelongingOfPoint(O))
-					return 0;
+					return true;
 			}
-			for (int i = 0; i < vertices.Length; i++)
+			return false;
+		}
+
+		public bool IsInside(Point O)
+		{
+			if (!this.GetPlane().CheckBelongingOfPoint(O))
+				throw new Exception("Point is not on the plane");
+			if (IsOnSide(O))
+				return false;
+			double sumAngle = 0;
+			for (int i = 0; i < n; i++)
 			{
-				Segment currSegment = new Segment(vertices[i], vertices[(i + 1) % vertices.Length]);
-				if (currSegment.OnSameLine(checkSegment))
-					throw new Exception("Segments belongs to the same line");//TODO: fix
-				if (currSegment.FindIntersection(checkSegment) != null)
-					cnt++;
+				double currAngle = vertices[(i + 1) % n].GetAngle(vertices[i]);
+				sumAngle += currAngle;
 			}
-			if (cnt % 2 == 0)
-				return -1;
-			return 1;
+			if (sumAngle.IsEqual(0))
+				return false;
+			else if (sumAngle.IsEqual(2 * Math.PI))
+				return true;
+			else
+				throw new Exception("Strange angle " + sumAngle);
 		}
 	}
 }
