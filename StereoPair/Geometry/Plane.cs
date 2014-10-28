@@ -22,6 +22,12 @@ namespace Geometry
 			n = _n;
 		}
 
+		public Plane(Point _P, Point v1, Point v2)
+		{
+			P = _P;
+			n = v1.CrossProduct(v2);
+		}
+
 		public bool CheckBelongingOfPoint(Point P)
 		{
 			return GeometryOperations.PointOnPlane(P, this);
