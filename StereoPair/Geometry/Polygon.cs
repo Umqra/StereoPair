@@ -43,8 +43,8 @@ namespace Geometry
 
 		public Point2D[] ConvertTo2D(Plane currPlane, Point e1, Point e2)
 		{
-			if (vertices[0].Equals(vertices[1]) || vertices[1].Equals(vertices[2]) || (vertices[1] - vertices[0]).CrossProduct(vertices[2] - vertices[1]).Length().IsEqual(0))
-				throw new NotImplementedException("Polygon is bad");
+			//if (vertices[0].Equals(vertices[1]) || vertices[1].Equals(vertices[2]) || (vertices[1] - vertices[0]).CrossProduct(vertices[2] - vertices[1]).Length().IsEqual(0))
+				//throw new NotImplementedException("Polygon is bad");
 			if (e1.CrossProduct(e2).Length().IsEqual(0) || !e1.CrossProduct(e2).CrossProduct(currPlane.n).Length().IsEqual(0))
 				throw new Exception("Bad basis");
 			Point2D[] result = new Point2D[vertices.Length];
