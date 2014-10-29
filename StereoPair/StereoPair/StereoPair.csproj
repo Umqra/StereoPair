@@ -46,6 +46,8 @@
     <Compile Include="ApplicationForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="AppPolygon2D.cs" />
+    <Compile Include="AppPolyhedron.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Drawer.cs" />
     <Compile Include="Program.cs" />

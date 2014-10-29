@@ -10,7 +10,8 @@ namespace StereoPair
 {
 	class Reader
 	{
-		public static Polyhedron ReadData(String fileName)
+		public static AppPolyhedron Polyhedron;
+		public static void ReadData(String fileName)
 		{
 			String[] lines = File.ReadAllLines(fileName);
 			int amountOfFaces = int.Parse(lines[0]);
@@ -29,7 +30,12 @@ namespace StereoPair
 				}
 				polygons.Add(new Polygon(amountOfVertices, vertices));
 			}
-			return new Polyhedron(amountOfFaces, polygons.ToArray());
+			Polyhedron = new AppPolyhedron(amountOfFaces, polygons.ToArray());
+		}
+
+		public static AppPolyhedron GetPolyhedron()
+		{
+			return Polyhedron;
 		}
 	}
 }

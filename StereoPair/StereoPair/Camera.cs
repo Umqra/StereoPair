@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Geometry;
+using Point = Geometry.Point;
 
 namespace StereoPair
 {
@@ -59,23 +61,28 @@ namespace StereoPair
 			return new[] {position - toEye, position + toEye};
 		}
 
-		public Point2D[][] GetFrames(Polyhedron polyhedron, Point eye)
+		public AppPolygon2D[] GetFrames(AppPolyhedron polyhedron, Point eye)
 		{
-			List<Point2D[]> frames = new List<Point2D[]>();
+			List<AppPolygon2D> frames = new List<AppPolygon2D>();
 			Point yBasis = GeometryOperations.CentralProjectionVectorOnPlane(new Point(0, 1, 0), plane, eye);
 			Point xBasis = plane.GetSecondBasisVector(yBasis);
-			foreach (var polygon in polyhedron.faces)
+			Polygon[] faces = polyhedron.faces;
+			for (int i = 0; i < faces.Length; i++)
 			{
-				if (this.IsVisible(polyhedron, polygon))
-					frames.Add(polygon.CentralProjectionToPlane(plane, eye).ConvertTo2D(plane, xBasis, yBasis));
+				if (this.IsVisible(polyhedron, faces[i]))
+				{
+					Point2D[] converted = faces[i].CentralProjectionToPlane(plane, eye).ConvertTo2D(plane, xBasis, yBasis);
+					AppPolygon2D frame = new AppPolygon2D(converted.Length, converted, polyhedron.ListColors[i]);
+					frames.Add(frame);
+				}
 			}
 			return frames.ToArray();
 		}
 
-		public Point2D[][][] GetFrames(Polyhedron polyhedron)
+		public AppPolygon2D[][] GetFrames(AppPolyhedron polyhedron)
 		{
 			Point[] eyes = GetEyes();
-			Point2D[][][] frames = new Point2D[2][][];
+			AppPolygon2D[][] frames = new AppPolygon2D[2][];
 			frames[0] = GetFrames(polyhedron, eyes[0]);
 			frames[1] = GetFrames(polyhedron, eyes[1]);
 			return frames;

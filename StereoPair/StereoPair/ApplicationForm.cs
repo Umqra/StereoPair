@@ -58,20 +58,21 @@ namespace StereoPair
 			FullscreenMode = !FullscreenMode;
 		}
 
-		private static void DrawSetOfPolygons(Geometry.Point2D[][] polygons, PaintEventArgs e, Point2D shift)
+		private static void DrawSetOfPolygons(AppPolygon2D[] polygons, PaintEventArgs e, Point2D shift)
 		{
 			//var graphics = Graphics.FromImage(image);
 			e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
 			for (int i = 0; i < polygons.Length; i++)
 			{
-				PointF[] pointsF = new PointF[polygons[i].Length];
-				for (int j = 0; j < polygons[i].Length; j++)
+				Point2D[] vertices = polygons[i].vertices;
+				PointF[] pointsF = new PointF[vertices.Length];
+				for (int j = 0; j < vertices.Length; j++)
 				{
-					Geometry.Point2D a = polygons[i][j];
+					Geometry.Point2D a = vertices[j];
 					pointsF[j] = new PointF((float)a.x + (float)shift.x, -(float)a.y + (float)shift.y);
 					//graphics.DrawLine(new Pen(Brushes.Blue), new PointF((float)a.x + sizeX / 2f, -(float)a.y + sizeY / 2f), new PointF((float)b.x + sizeX / 2f, -(float)b.y + sizeY / 2f));
 				}
-				e.Graphics.FillPolygon(new SolidBrush(colors[i % colors.Length]), pointsF);
+				e.Graphics.FillPolygon(new SolidBrush(polygons[i].PolygonColor), pointsF);
 			}
 		}
 
@@ -123,6 +124,7 @@ namespace StereoPair
 			{
 				Random newRandom = new Random();
 				Generate.WritePolyhedronToData(newRandom.Next(20) + 10);
+				Reader.ReadData("../../data.txt");
 			}
 			else if (e.KeyChar == 'f')
 			{
@@ -131,9 +133,9 @@ namespace StereoPair
 			Invalidate();
 		}
 
-		private static void DrawPolyhedron(Geometry.Polyhedron polyhedron, PaintEventArgs e, Point2D shift1, Point2D shift2)
+		private static void DrawPolyhedron(AppPolyhedron polyhedron, PaintEventArgs e, Point2D shift1, Point2D shift2)
 		{
-			Point2D[][][] frames = camera.GetFrames(polyhedron);
+			AppPolygon2D[][] frames = camera.GetFrames(polyhedron);
 			DrawSetOfPolygons(frames[0], e, shift1);
 			DrawSetOfPolygons(frames[1], e, shift2);
 		}
@@ -146,7 +148,7 @@ namespace StereoPair
 			Point2D shift = new Point2D(sizeX / 2, sizeY / 2);
 			Point2D shift1 = shift - DistBetweenPictures;
 			Point2D shift2 = shift + DistBetweenPictures;
-			DrawPolyhedron(Reader.ReadData("../../data.txt"), e, shift1, shift2);
+			DrawPolyhedron(Reader.GetPolyhedron(), e, shift1, shift2);
 		}
 	}
 }
