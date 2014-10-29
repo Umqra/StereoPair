@@ -34,7 +34,8 @@ namespace StereoPair
 		{
 			camera = new Camera(new Point(0, 0, 300));
 			var image = new Bitmap(sizeX, sizeY);
-			DrawPolyhedronToBitmap(image, Reader.ReadData("data.txt"));
+			//image.
+			DrawPolyhedronToBitmap(image, Reader.ReadData("../../data.txt"));
 			var form = new Form
 			{
 				Text = "Stereo Pair",
