@@ -64,8 +64,8 @@ namespace StereoPair
 		public AppPolygon2D[] GetFrames(AppPolyhedron polyhedron, Point eye, int ColorMode)
 		{
 			List<AppPolygon2D> frames = new List<AppPolygon2D>();
-			Point yBasis = GeometryOperations.CentralProjectionVectorOnPlane(new Point(0, 1, 0), plane, eye);
-			Point xBasis = plane.GetSecondBasisVector(yBasis);
+			Point yBasis = GeometryOperations.CentralProjectionVectorOnPlane(new Point(0, 1, 0), plane, eye).Normalize(1);
+			Point xBasis = plane.GetSecondBasisVector(yBasis).Normalize(1);
 			Polygon[] faces = polyhedron.faces;
 			for (int i = 0; i < faces.Length; i++)
 			{
