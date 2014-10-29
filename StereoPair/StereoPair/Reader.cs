@@ -18,6 +18,8 @@ namespace StereoPair
 
 			for (int i = 1; i < lines.Length; i++)
 			{
+				if (lines[i] == "")
+					continue;
 				int[] values = lines[i].Split(' ').Where(line => line != "").Select(int.Parse).ToArray();
 				int amountOfVertices = values[0];
 				Point[] vertices = new Point[amountOfVertices];
