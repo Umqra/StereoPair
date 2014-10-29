@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Geometry;
+using RandomGenerator;
 using Point = Geometry.Point;
 using Timer = System.Windows.Forms.Timer;
 
@@ -100,6 +101,11 @@ namespace StereoPair
 					autoRotatingAngle = angle;
 				else
 					autoRotatingAngle = 0;
+			}
+			else if (e.KeyChar == 'n')
+			{
+				Random newRandom = new Random();
+				Generate.WritePolyhedronToData(newRandom.Next(20) + 10);
 			}
 			Invalidate();
 		}
