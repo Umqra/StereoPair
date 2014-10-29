@@ -55,19 +55,17 @@ namespace StereoPair
 
 		private bool IsVisible(Polyhedron polyhedron, Polygon polygon)
 		{
-			foreach (var point in polygon.vertices)
+			Point centralVertex = polygon.GetRandomPointInside();
+					
+			foreach (var face in polyhedron.faces)
 			{
-				foreach (var face in polyhedron.faces)
-				{
-					Plane facePlane = face.GetPlane();
-					Point vertex = face.GetRandomPointInside();
-					Segment viewSegment = new Segment(position, vertex);
-					if (facePlane.CheckBelongingOfLine(viewSegment.GetLine()))
-						continue;
-					Point interPoint = facePlane.Intersect(viewSegment.GetLine()); //TODO: something wrong... But now it seems to be ok
-					if (face.IsInside(interPoint) && viewSegment.CheckBelongingOfPoint(interPoint))
-						return false;
-					}
+				Plane facePlane = face.GetPlane();
+				Segment viewSegment = new Segment(position, centralVertex);
+				if (face == polygon || facePlane.CheckBelongingOfLine(viewSegment.GetLine()))
+					continue;
+				Point interPoint = facePlane.Intersect(viewSegment.GetLine()); //TODO: something wrong... But now it seems to be ok
+				if ((face.IsOnSide(interPoint) || face.IsInside(interPoint)) && viewSegment.CheckBelongingOfPoint(interPoint))
+					return false;
 			}
 			return true;
 		}

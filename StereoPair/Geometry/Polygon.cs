@@ -87,9 +87,10 @@ namespace Geometry
 			if (IsOnSide(O))
 				return false;
 			double sumAngle = 0;
+			Point normal = this.GetPlane().n;
 			for (int i = 0; i < n; i++)
 			{
-				double currAngle = (vertices[(i + 1) % n] - O).GetAngle(vertices[i] - O);
+				double currAngle = (vertices[(i + 1) % n] - O).GetAngle(vertices[i] - O, normal);
 				sumAngle += currAngle;
 			}
 			if (sumAngle.IsEqual(0))

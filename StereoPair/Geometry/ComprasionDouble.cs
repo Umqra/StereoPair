@@ -12,6 +12,16 @@ namespace Geometry
 	{
 		public const double Epsilon = 1e-8;
 
+		public static int Signum(double a)
+		{
+			if (a.IsLess(0))
+				return -1;
+			else if (a.IsEqual(0))
+				return 0;
+			else
+				return 1;
+		}
+
 		public static bool AreEqual(double a, double b, double eps)
 		{
 			return Math.Abs(a - b) < eps;
