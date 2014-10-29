@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Geometry;
+using RandomGenerator;
 using Point = Geometry.Point;
 
 namespace StereoPair
@@ -15,6 +16,7 @@ namespace StereoPair
 	{
 		static void Main(string[] args)
 		{
+			//Generate.WritePolyhedronToData();
 			int sizeX = 500, sizeY = 500;
 			var form = new Form
 			{

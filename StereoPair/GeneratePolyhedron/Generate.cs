@@ -102,7 +102,7 @@ namespace RandomGenerator
 	    public static void WritePolyhedronToData()
 	    {
 		    Polyhedron polyhedron = GetRandomPolyhedron();
-		    string pathToData = "poly.txt";
+		    string pathToData = "../../../StereoPair/data.txt";
 		    Console.WriteLine(polyhedron.ToString());
 		    File.WriteAllLines(pathToData, polyhedron.ToString().Split('\n'));
 	    }

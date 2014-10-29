@@ -53,6 +53,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GeneratePolyhedron\RandomGenerator.csproj">
+      <Project>{a86c400c-9c18-41fc-886b-7a1830ce1447}</Project>
+      <Name>RandomGenerator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Geometry\Geometry.csproj">
       <Project>{5c232ed2-52ff-477e-b7bb-da9df1270c2f}</Project>
       <Name>Geometry</Name>
