@@ -18,12 +18,8 @@ namespace StereoPair
 		{
 			Generate.WritePolyhedronToData(8);
 			int sizeX = 500, sizeY = 500;
-			var form = new Form
-			{
-				Text = "Stereo Pair",
-				ClientSize = new Size(sizeX * 2, sizeY)
-			};
-			Drawer drawer = new Drawer(form);
+			var form = new ApplicationForm();
+			form.ShowDialog();
 		}
 	}
 }

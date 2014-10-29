@@ -84,6 +84,7 @@ namespace StereoPair
 				//			form.Controls.Add(new PictureBox { Image = image, Dock = DockStyle.Right, SizeMode = PictureBoxSizeMode.CenterImage});
 				form.Refresh();
 				Thread.Sleep(50);
+				break;
 			}
 		}
 	}

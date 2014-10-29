@@ -60,15 +60,17 @@ namespace Geometry
 		    return new Point2D(xCoord, yCoord);
 	    }
 
-	    public Point Normalize(int len)
+	    public Point Normalize(double len)
 	    {
+			if (len.IsLess(0))
+				throw new Exception("Can't set negative length");
 		    if (ComprasionDouble.AreEqual(len, 0))
 		    {
 			    if (IsNullVector())
 				    return this;
 				throw new ArgumentException("Can't set non-zero length to null vector.");
 		    }
-		    return this / Length();
+		    return this / Length() * len;
 	    }
 
 	    public double Length()
@@ -130,6 +132,11 @@ namespace Geometry
 		    return String.Format("{0} {1} {2} ", x, y, z);
 	    }
 
+		public double GetUnsignedAngle(Point v)
+		{
+			return GeometryOperations.GetUnsignedAngle(this, v);
+		}
+
 		public double GetAngle(Point v, Point normal)
 	    {
 			return GeometryOperations.GetAngle(this, v, normal);
@@ -147,6 +154,18 @@ namespace Geometry
 	    public bool Collinear(Point v)
 	    {
 		    return this.CrossProduct(v).Length().IsEqual(0);
+	    }
+
+	    public Point Rotate(Point v, double angle)
+	    {
+		    Point a = v * this.DotProduct(v) / v.Length() / v.Length();
+		    Point b = this - a;
+		    Point u = v.CrossProduct(b) / v.Length();
+		    Point result = a + (u * Math.Sin(angle) + b * Math.Cos(angle));
+			//Thank you very much, sweet exception :)
+		    //if (!Math.Abs(this.GetAngle(result, v)).IsEqual(Math.Abs(angle)))
+			//	throw new Exception("Angles are not equal " + Math.Abs((this.GetAngle(result, v))) + " " + Math.Abs(angle));
+		    return result;
 	    }
     }
 }

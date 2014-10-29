@@ -10,9 +10,10 @@ namespace StereoPair
 {
 	class Camera
 	{
-		public readonly Point position;
-		public readonly Plane plane;
+		public Point position;
+		public Plane plane;
 		public const double EyeDistance = 10;
+		public const double DistToPlane = 50;
 
 		public Camera(Point _position, Plane _plane)
 		{
@@ -20,17 +21,34 @@ namespace StereoPair
 			plane = _plane;
 		}
 
+		public void UpdatePlane()
+		{
+			Point P = GetDirectionOfView().Normalize(DistToPlane);//TODO: fix constant
+			Point v = GetDirectionOfView().Normalize(1);
+			plane = new Plane(P, v);
+		}
+
 		public Camera(Point _position)
 		{
 			position = _position;
-			Point P = GetDirectionOfView().Normalize(50);//TODO: fix constant
-			Point v = GetDirectionOfView().Normalize(1);
-			plane = new Plane(P, v);
+			UpdatePlane();
 		}
 
 		public Point GetDirectionOfView()
 		{
 			return new Point(0, 0, 0) - position;
+		}
+
+		public void Rotate(Point normal, double angle)
+		{
+			position = position.Rotate(normal, angle);
+			UpdatePlane();
+		}
+
+		public void SetLength(double len)
+		{
+			position = position.Normalize(len);
+			UpdatePlane();
 		}
 
 		public Point[] GetEyes()

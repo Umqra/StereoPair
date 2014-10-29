@@ -114,16 +114,13 @@ namespace Geometry
 
 		public static double GetAngle(Point v1, Point v2, Point n)
 		{
-			//TODO: Костыль какой-то
-			/*if (v1.CrossProduct(v2).Length().IsEqual(0))
-				return Math.Atan2(v1.CrossProduct(v2).Length(), v1.DotProduct(v2));
-			Point e1 = v1.CrossProduct(v2).CrossProduct(v2).Normalize(1);
-			Point e2 = v2.Normalize(1);
-			Plane currPlane = new Plane(new Point(0, 0, 0), e1,  e2);
-			Point2D v1_2D = v1.OrthogonalProjectionOnPlane(currPlane).ConvertTo2D(currPlane, e1, e2);
-			Point2D v2_2D = v2.OrthogonalProjectionOnPlane(currPlane).ConvertTo2D(currPlane, e1, e2);*/
 			int sign = ComprasionDouble.Signum(v1.CrossProduct(v2).DotProduct(n));
 			return Math.Atan2(v1.CrossProduct(v2).Length(), v1.DotProduct(v2)) * sign;
+		}
+
+		public static double GetUnsignedAngle(Point v1, Point v2)
+		{
+			return Math.Atan2(v1.CrossProduct(v2).Length(), v1.DotProduct(v2));
 		}
 	}
 }
