@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -54,9 +55,22 @@ namespace StereoPair
 			form = form_;
 			thread.Start();
 		}
+		/// <summary>
+		/// Strange function, which was here http://www.csharp-examples.net/set-doublebuffered/
+		/// And it works
+		/// </summary>
+		/// <param name="control"></param>
+		public static void SetDoubleBuffered(Control control)
+		{
+			// set instance non-public property with name "DoubleBuffered" to true
+			typeof(Control).InvokeMember("DoubleBuffered",
+				BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+				null, control, new object[] { true });
+		}
 
 		void Draw()
 		{
+			SetDoubleBuffered(form);
 			form.Show();
 			while (true)
 			{
