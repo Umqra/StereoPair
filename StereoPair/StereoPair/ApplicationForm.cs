@@ -41,7 +41,7 @@ namespace StereoPair
 			Invalidate();
 		}
 
-		private static void DrawSetOfPolygonsToBitmap(Geometry.Point2D[][] polygons, PaintEventArgs e, Point2D shift)
+		private static void DrawSetOfPolygons(Geometry.Point2D[][] polygons, PaintEventArgs e, Point2D shift)
 		{
 			//var graphics = Graphics.FromImage(image);
 			e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
@@ -110,11 +110,11 @@ namespace StereoPair
 			Invalidate();
 		}
 
-		private static void DrawPolyhedronToBitmaps(Geometry.Polyhedron polyhedron, PaintEventArgs e, Point2D shift1, Point2D shift2)
+		private static void DrawPolyhedron(Geometry.Polyhedron polyhedron, PaintEventArgs e, Point2D shift1, Point2D shift2)
 		{
 			Point2D[][][] frames = camera.GetFrames(polyhedron);
-			DrawSetOfPolygonsToBitmap(frames[0], e, shift1);
-			DrawSetOfPolygonsToBitmap(frames[1], e, shift2);
+			DrawSetOfPolygons(frames[0], e, shift1);
+			DrawSetOfPolygons(frames[1], e, shift2);
 		}
 
 		protected override void OnPaint(PaintEventArgs e)
@@ -124,7 +124,7 @@ namespace StereoPair
 			Point2D shift = new Point2D(sizeX / 2, sizeY / 2);
 			Point2D shift1 = shift - DistBetweenPictures;
 			Point2D shift2 = shift + DistBetweenPictures;
-			DrawPolyhedronToBitmaps(Reader.ReadData("../../data.txt"), e, shift1, shift2);
+			DrawPolyhedron(Reader.ReadData("../../data.txt"), e, shift1, shift2);
 		}
 	}
 }

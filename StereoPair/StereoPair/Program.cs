@@ -16,7 +16,7 @@ namespace StereoPair
 	{
 		static void Main(string[] args)
 		{
-			Generate.WritePolyhedronToData(8);
+			Generate.WritePolyhedronToData(10);
 			int sizeX = 500, sizeY = 500;
 			var form = new ApplicationForm();
 			form.ShowDialog();
