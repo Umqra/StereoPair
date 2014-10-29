@@ -12,6 +12,7 @@ namespace StereoPair
 	{
 		public readonly Point position;
 		public readonly Plane plane;
+		public const double EyeDistance = 10;
 
 		public Camera(Point _position, Plane _plane)
 		{
@@ -40,17 +41,26 @@ namespace StereoPair
 			return new[] {position + toEye, position - toEye};
 		}
 
-		public Point2D[][] GetFrames(Polyhedron polyhedron)
+		public Point2D[][] GetFrames(Polyhedron polyhedron, Point eye)
 		{
 			List<Point2D[]> frames = new List<Point2D[]>();
-			Point yBasis = GeometryOperations.CentralProjectionVectorOnPlane(new Point(0, 1, 0), plane, position);
+			Point yBasis = GeometryOperations.CentralProjectionVectorOnPlane(new Point(0, 1, 0), plane, eye);
 			Point xBasis = plane.GetSecondBasisVector(yBasis);
 			foreach (var polygon in polyhedron.faces)
 			{
 				if (this.IsVisible(polyhedron, polygon))
-					frames.Add(polygon.CentralProjectionToPlane(plane, position).ConvertTo2D(plane, xBasis, yBasis));
+					frames.Add(polygon.CentralProjectionToPlane(plane, eye).ConvertTo2D(plane, xBasis, yBasis));
 			}
 			return frames.ToArray();
+		}
+
+		public Point2D[][][] GetFrames(Polyhedron polyhedron)
+		{
+			Point[] eyes = GetEyes();
+			Point2D[][][] frames = new Point2D[2][][];
+			frames[0] = GetFrames(polyhedron, eyes[0]);
+			frames[1] = GetFrames(polyhedron, eyes[1]);
+			return frames;
 		}
 
 		private bool IsVisible(Polyhedron polyhedron, Polygon polygon)
