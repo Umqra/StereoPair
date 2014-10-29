@@ -12,7 +12,7 @@ namespace StereoPair
 	{
 		public readonly Point position;
 		public readonly Plane plane;
-		public const double EyeDistance = 10;
+		public const double EyeDistance = 100;
 
 		public Camera(Point _position, Plane _plane)
 		{
@@ -37,7 +37,7 @@ namespace StereoPair
 		{
 			Point dir = GetDirectionOfView();
 			Point vertical = new Point(0, 1, 0);
-			Point toEye = dir.CrossProduct(vertical).Normalize(1);
+			Point toEye = dir.CrossProduct(vertical).Normalize(1) * EyeDistance;
 			return new[] {position + toEye, position - toEye};
 		}
 
