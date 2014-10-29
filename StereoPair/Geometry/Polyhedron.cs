@@ -16,5 +16,14 @@ namespace Geometry
 			n = n_;
 			faces = faces_;
 		}
+
+		public override string ToString()
+		{
+			string result = "";
+			result += String.Format("{0}\n", n);
+			foreach (var polygon in faces)
+				result += polygon.ToString();
+			return result;
+		}
 	}
 }

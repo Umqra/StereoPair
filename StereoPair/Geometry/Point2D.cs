@@ -40,5 +40,14 @@ namespace Geometry
 			return new Point2D(a.x * k, a.y * k);
 		}
 
+		public double GetAngle()
+		{
+			return Math.Atan2(y, x);
+		}
+
+		public double Length()
+		{
+			return Math.Sqrt(x * x + y * y);
+		}
 	}
 }

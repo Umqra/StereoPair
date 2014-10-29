@@ -56,5 +56,10 @@ namespace Geometry
 		{
 			return firstBasis.CrossProduct(n);
 		}
+
+		public bool PointOnTheSide(Point A)
+		{
+			return (A - P).DotProduct(n).IsGreater(0);
+		}
 	}
 }

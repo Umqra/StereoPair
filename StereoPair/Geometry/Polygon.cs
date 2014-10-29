@@ -100,5 +100,15 @@ namespace Geometry
 			else
 				throw new Exception("Strange angle " + sumAngle);
 		}
+
+		public override string ToString()
+		{
+			string result = "";
+			result += String.Format("{0} ", n);
+			foreach (var vertex in vertices)
+				result += vertex.ToString();
+			result += "\n";
+			return result;
+		}
 	}
 }

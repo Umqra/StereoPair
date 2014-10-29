@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StereoPair", "StereoPair\St
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geometry", "Geometry\Geometry.csproj", "{5C232ED2-52FF-477E-B7BB-DA9DF1270C2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomGenerator", "GeneratePolyhedron\RandomGenerator.csproj", "{A86C400C-9C18-41FC-886B-7A1830CE1447}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{5C232ED2-52FF-477E-B7BB-DA9DF1270C2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C232ED2-52FF-477E-B7BB-DA9DF1270C2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C232ED2-52FF-477E-B7BB-DA9DF1270C2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A86C400C-9C18-41FC-886B-7A1830CE1447}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A86C400C-9C18-41FC-886B-7A1830CE1447}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A86C400C-9C18-41FC-886B-7A1830CE1447}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A86C400C-9C18-41FC-886B-7A1830CE1447}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

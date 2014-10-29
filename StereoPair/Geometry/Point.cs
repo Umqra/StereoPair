@@ -127,7 +127,7 @@ namespace Geometry
 
 	    public override string ToString()
 	    {
-		    return String.Format("x = {0}, y = {1}, z = {2}\n", x, y, z);
+		    return String.Format("{0} {1} {2} ", x, y, z);
 	    }
 
 		public double GetAngle(Point v, Point normal)
@@ -144,5 +144,9 @@ namespace Geometry
 			return GeometryOperations.CentralProjectionPointOnPlane(this, plane, center);
 		}
 
+	    public bool Collinear(Point v)
+	    {
+		    return this.CrossProduct(v).Length().IsEqual(0);
+	    }
     }
 }
