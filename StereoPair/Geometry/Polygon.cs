@@ -55,6 +55,23 @@ namespace Geometry
 			throw new Exception("Point is not found");
 		}
 
+		public Point GetBounds()
+		{
+			double minX = vertices[0].x, maxX = vertices[0].x, 
+					minY = vertices[0].y, maxY = vertices[0].y, 
+					minZ = vertices[0].z, maxZ = vertices[0].z;
+			for (int i = 0; i < vertices.Length; i++)
+			{
+				minX = Math.Min(minX, vertices[i].x);
+				minY = Math.Min(minY, vertices[i].y);
+				minZ = Math.Min(minZ, vertices[i].z);
+				maxX = Math.Max(maxX, vertices[i].x);
+				maxY = Math.Max(maxY, vertices[i].y);
+				maxZ = Math.Max(maxZ, vertices[i].z);
+			}
+			return new Point(maxX - minX, maxY - minY, maxZ - minZ);
+		}
+
 		public Point2D[] ConvertTo2D(Plane currPlane, Point e1, Point e2)
 		{
 			//if (vertices[0].Equals(vertices[1]) || vertices[1].Equals(vertices[2]) || (vertices[1] - vertices[0]).CrossProduct(vertices[2] - vertices[1]).Length().IsEqual(0))
