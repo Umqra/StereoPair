@@ -22,6 +22,7 @@ namespace StereoPair
 		private double distFromCenter = 300;
 		private Point2D DistBetweenPictures = new Point2D(sizeX / 4, 0);
 		private double autoRotatingAngle = 0;
+		private bool FullscreenMode = false;
 
 		private static Color[] colors = new Color[] { Color.Red, Color.Blue, Color.Green, Color.Gold, Color.Fuchsia, Color.Chartreuse, Color.DodgerBlue, Color.Teal };
 
@@ -39,6 +40,22 @@ namespace StereoPair
 		{
 			camera.Rotate(new Point(0, 1, 0), autoRotatingAngle);
 			Invalidate();
+		}
+
+		private void ToggleFullscreen()
+		{
+			if (!FullscreenMode)
+			{
+				this.WindowState = FormWindowState.Normal;
+				this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+				this.Bounds = Screen.PrimaryScreen.Bounds;
+			}
+			else
+			{
+				this.WindowState = FormWindowState.Maximized;
+				this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+			}
+			FullscreenMode = !FullscreenMode;
 		}
 
 		private static void DrawSetOfPolygons(Geometry.Point2D[][] polygons, PaintEventArgs e, Point2D shift)
@@ -107,6 +124,10 @@ namespace StereoPair
 				Random newRandom = new Random();
 				Generate.WritePolyhedronToData(newRandom.Next(20) + 10);
 			}
+			else if (e.KeyChar == 'f')
+			{
+				ToggleFullscreen();
+			}
 			Invalidate();
 		}
 
@@ -119,8 +140,9 @@ namespace StereoPair
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
+			sizeX = this.Width;
+			sizeY = this.Height;
 			base.OnPaint(e);
-			Bitmap[] images = new[] { new Bitmap(sizeX, sizeY), new Bitmap(sizeX, sizeY) };
 			Point2D shift = new Point2D(sizeX / 2, sizeY / 2);
 			Point2D shift1 = shift - DistBetweenPictures;
 			Point2D shift2 = shift + DistBetweenPictures;
