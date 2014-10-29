@@ -72,11 +72,20 @@ namespace StereoPair
 				if (this.IsVisible(polyhedron, faces[i]))
 				{
 					Point2D[] converted = faces[i].CentralProjectionToPlane(plane, eye).ConvertTo2D(plane, xBasis, yBasis);
-					AppPolygon2D frame = new AppPolygon2D(converted.Length, converted, polyhedron.ListColors[i]);
+					AppPolygon2D frame = new AppPolygon2D(converted.Length, converted, GetFaceColor(faces[i], eye));
 					frames.Add(frame);
 				}
 			}
 			return frames.ToArray();
+		}
+
+		public Color GetFaceColor(Polygon face, Point eye)
+		{
+			Point pointInside = face.GetRandomPointInside();
+			double normalizeCoeff = Math.Max(1.1, (pointInside - eye).Length() / 100);
+			double grayValue = 240 / normalizeCoeff;
+			int gray = (int) grayValue;
+			return Color.FromArgb(gray, gray, gray);
 		}
 
 		public AppPolygon2D[][] GetFrames(AppPolyhedron polyhedron)
