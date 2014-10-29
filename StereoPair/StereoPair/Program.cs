@@ -12,7 +12,7 @@ namespace StereoPair
 {
 	class Program
 	{
-		static private int sizeX = 900, sizeY = 500;
+		static private int sizeX = 500, sizeY = 500;
 		static Camera camera;
 
 		public static void DrawSetOfPolygonsToBitmap(Bitmap image, Geometry.Point2D[][] polygons)
@@ -30,24 +30,25 @@ namespace StereoPair
 			}
 		}
 
-		public static void DrawPolyhedronToBitmap(Bitmap image, Geometry.Polyhedron polyhedron)
+		public static void DrawPolyhedronToBitmaps(Bitmap[] image, Geometry.Polyhedron polyhedron)
 		{
 			Point2D[][][] frames = camera.GetFrames(polyhedron);
-			DrawSetOfPolygonsToBitmap(image, frames[0]);
-			DrawSetOfPolygonsToBitmap(image, frames[1]);
+			DrawSetOfPolygonsToBitmap(image[0], frames[0]);
+			DrawSetOfPolygonsToBitmap(image[1], frames[1]);
 		}
 		static void Main(string[] args)
 		{
 			camera = new Camera(new Point(0, 0, 300));
-			var image = new Bitmap(sizeX, sizeY);
-			//image.
-			DrawPolyhedronToBitmap(image, Reader.ReadData("../../data.txt"));
+			Bitmap[] images = new[] {new Bitmap(sizeX, sizeY), new Bitmap(sizeX, sizeY)};
+			DrawPolyhedronToBitmaps(images, Reader.ReadData("../../data.txt"));
 			var form = new Form
 			{
 				Text = "Stereo Pair",
-				ClientSize = new Size(sizeX, sizeY)
+				ClientSize = new Size(sizeX * 2, sizeY)
 			};
-			form.Controls.Add(new PictureBox { Image = image, Dock = DockStyle.Fill, SizeMode = PictureBoxSizeMode.CenterImage});
+			form.Controls.Add(new PictureBox { Image = images[0], Dock = DockStyle.Left, ClientSize = new Size(sizeX, sizeY), SizeMode = PictureBoxSizeMode.StretchImage });
+			form.Controls.Add(new PictureBox { Image = images[1], Dock = DockStyle.Right, ClientSize = new Size(sizeX, sizeY), SizeMode = PictureBoxSizeMode.StretchImage });
+			//form.Controls.Add(new PictureBox { Image = image, Dock = DockStyle.Fill, SizeMode = PictureBoxSizeMode.CenterImage});
 //			form.Controls.Add(new PictureBox { Image = image, Dock = DockStyle.Right, SizeMode = PictureBoxSizeMode.CenterImage});
 			form.ShowDialog();
 		}
