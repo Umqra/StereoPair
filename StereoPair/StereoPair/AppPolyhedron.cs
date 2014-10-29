@@ -17,7 +17,7 @@ namespace StereoPair
 			Random random = new Random();
 			ListColors = new Color[faces_.Length];
 			for (var i = 0; i < faces_.Length; i++)
-				ListColors[i] = Color.FromArgb(150, 150, 150);
+				ListColors[i] = Color.FromArgb(random.Next(255), random.Next(255), random.Next(255));
 		}
 	}
 }

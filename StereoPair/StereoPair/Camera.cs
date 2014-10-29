@@ -25,7 +25,7 @@ namespace StereoPair
 
 		public void UpdatePlane()
 		{
-			Point P = GetDirectionOfView().Normalize(DistToPlane);//TODO: fix constant
+			Point P = position + GetDirectionOfView().Normalize(DistToPlane);//TODO: fix constant
 			Point v = GetDirectionOfView().Normalize(1);
 			plane = new Plane(P, v);
 		}
@@ -61,7 +61,7 @@ namespace StereoPair
 			return new[] {position - toEye, position + toEye};
 		}
 
-		public AppPolygon2D[] GetFrames(AppPolyhedron polyhedron, Point eye)
+		public AppPolygon2D[] GetFrames(AppPolyhedron polyhedron, Point eye, int ColorMode)
 		{
 			List<AppPolygon2D> frames = new List<AppPolygon2D>();
 			Point yBasis = GeometryOperations.CentralProjectionVectorOnPlane(new Point(0, 1, 0), plane, eye);
@@ -72,7 +72,7 @@ namespace StereoPair
 				if (this.IsVisible(polyhedron, faces[i]))
 				{
 					Point2D[] converted = faces[i].CentralProjectionToPlane(plane, eye).ConvertTo2D(plane, xBasis, yBasis);
-					AppPolygon2D frame = new AppPolygon2D(converted.Length, converted, GetFaceColor(faces[i], eye));
+					AppPolygon2D frame = new AppPolygon2D(converted.Length, converted, (ColorMode == 0 ? GetFaceColor(faces[i], eye) : polyhedron.ListColors[i]));
 					frames.Add(frame);
 				}
 			}
@@ -88,12 +88,12 @@ namespace StereoPair
 			return Color.FromArgb(gray, gray, gray);
 		}
 
-		public AppPolygon2D[][] GetFrames(AppPolyhedron polyhedron)
+		public AppPolygon2D[][] GetFrames(AppPolyhedron polyhedron, int ColorMode)
 		{
 			Point[] eyes = GetEyes();
 			AppPolygon2D[][] frames = new AppPolygon2D[2][];
-			frames[0] = GetFrames(polyhedron, eyes[0]);
-			frames[1] = GetFrames(polyhedron, eyes[1]);
+			frames[0] = GetFrames(polyhedron, eyes[0], ColorMode);
+			frames[1] = GetFrames(polyhedron, eyes[1], ColorMode);
 			return frames;
 		}
 

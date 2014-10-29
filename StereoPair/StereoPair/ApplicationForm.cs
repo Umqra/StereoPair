@@ -23,6 +23,7 @@ namespace StereoPair
 		private Point2D DistBetweenPictures = new Point2D(sizeX / 4, 0);
 		private double autoRotatingAngle = 0;
 		private bool FullscreenMode = false;
+		static private int ColorMode = 0;
 
 		private static Color[] colors = new Color[] { Color.Red, Color.Blue, Color.Green, Color.Gold, Color.Fuchsia, Color.Chartreuse, Color.DodgerBlue, Color.Teal };
 
@@ -130,12 +131,16 @@ namespace StereoPair
 			{
 				ToggleFullscreen();
 			}
+			else if (e.KeyChar == 'c')
+			{
+				ColorMode = 1 - ColorMode;
+			}
 			Invalidate();
 		}
 
 		private static void DrawPolyhedron(AppPolyhedron polyhedron, PaintEventArgs e, Point2D shift1, Point2D shift2)
 		{
-			AppPolygon2D[][] frames = camera.GetFrames(polyhedron);
+			AppPolygon2D[][] frames = camera.GetFrames(polyhedron, ColorMode);
 			DrawSetOfPolygons(frames[0], e, shift1);
 			DrawSetOfPolygons(frames[1], e, shift2);
 		}
