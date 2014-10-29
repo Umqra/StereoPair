@@ -10,7 +10,7 @@ namespace RandomGenerator
 {
     public class Generate
     {
-	    public const int MaxCoordinat = 50;
+	    public const int MaxCoordinat = 100;
 	    public static Random Rand = new Random();
 	    public static double SphereRadius = 50;
 	    public static int GetRandomInt()
@@ -64,11 +64,10 @@ namespace RandomGenerator
 		    }
 		    return GetConvexHull(onPlane);
 	    }
-		public static Polyhedron GetRandomPolyhedron()
+		public static Polyhedron GetRandomPolyhedron(int n)
 		{
 			List<Polygon> faces = new List<Polygon>();
 		    List<Point> points = new List<Point>();
-		    int n = 30;
 		    for (int i = 0; i < n; i++)
 			    points.Add(GetRandomPoint());
 			for (int a = 0; a < n; a++)
@@ -99,9 +98,9 @@ namespace RandomGenerator
 		    return onTheOtherSide ^ onTheSide;
 	    }
 
-	    public static void WritePolyhedronToData()
+	    public static void WritePolyhedronToData(int n)
 	    {
-		    Polyhedron polyhedron = GetRandomPolyhedron();
+		    Polyhedron polyhedron = GetRandomPolyhedron(n);
 		    string pathToData = "../../../StereoPair/data.txt";
 		    Console.WriteLine(polyhedron.ToString());
 		    File.WriteAllLines(pathToData, polyhedron.ToString().Split('\n'));
