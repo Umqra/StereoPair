@@ -15,20 +15,26 @@ namespace StereoPair
 		static private int sizeX = 900, sizeY = 500;
 		static Camera camera;
 
-		public static void DrawPolyhedronToBitmap(Bitmap image, Geometry.Polyhedron polyhedron)
+		public static void DrawSetOfPolygonsToBitmap(Bitmap image, Geometry.Point2D[][] polygons)
 		{
 			var graphics = Graphics.FromImage(image);
-			Point2D[][] frames = camera.GetFrames(polyhedron);
-			for (int i = 0; i < frames.Length; i++)
-			{	
-				for (int j = 0; j < frames[i].Length; j++)
+			for (int i = 0; i < polygons.Length; i++)
+			{
+				for (int j = 0; j < polygons[i].Length; j++)
 				{
-					Geometry.Point2D a = frames[i][j];
-					Geometry.Point2D b = frames[i][(j + 1) % frames[i].Length];
+					Geometry.Point2D a = polygons[i][j];
+					Geometry.Point2D b = polygons[i][(j + 1) % polygons[i].Length];
 
 					graphics.DrawLine(new Pen(Brushes.Blue), new PointF((float)a.x + sizeX / 2f, -(float)a.y + sizeY / 2f), new PointF((float)b.x + sizeX / 2f, -(float)b.y + sizeY / 2f));
 				}
 			}
+		}
+
+		public static void DrawPolyhedronToBitmap(Bitmap image, Geometry.Polyhedron polyhedron)
+		{
+			Point2D[][][] frames = camera.GetFrames(polyhedron);
+			DrawSetOfPolygonsToBitmap(image, frames[0]);
+			DrawSetOfPolygonsToBitmap(image, frames[1]);
 		}
 		static void Main(string[] args)
 		{
