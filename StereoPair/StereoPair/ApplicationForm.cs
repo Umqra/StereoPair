@@ -135,6 +135,10 @@ namespace StereoPair
 			{
 				ColorMode = 1 - ColorMode;
 			}
+			else if (e.KeyChar == 'k')
+			{
+				Reader.ReadData("../../cube.txt");
+			}
 			Invalidate();
 		}
 
