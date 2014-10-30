@@ -84,16 +84,19 @@ namespace Geometry
 
 		public int GetTypeOverlapping(Polygon a, Plane plane, Point O)
 		{
+			Plane thisPlane = this.GetPlane();
+			Plane aPlane = a.GetPlane();
+			
 			foreach (Point point in GetRelevantPoints(a, plane, O))
 			{
 				Line line = new Line(O, (point - O));
-				if (this.GetPlane().CheckBelongingOfLine(line) || a.GetPlane().CheckBelongingOfLine(line))
+				if (thisPlane.CheckBelongingOfLine(line) || aPlane.CheckBelongingOfLine(line))
 					continue;
-				Point A = this.GetPlane().Intersect(line);
-				if (A == null || !this.IsInside(A) && !this.IsOnSide(A))
+				Point A = thisPlane.Intersect(line);
+				if (A == null || !this.IsInsideOrOnSide(A))
 					continue;
-				Point B = a.GetPlane().Intersect(line);
-				if (B == null || !a.IsInside(B) && !a.IsOnSide(B))
+				Point B = aPlane.Intersect(line);
+				if (B == null || !a.IsInsideOrOnSide(B))
 					continue;
 				if ((A - O).Length().IsGreater((B - O).Length()))
 					return 1;
@@ -164,6 +167,22 @@ namespace Geometry
 				return true;
 			else
 				throw new Exception("Strange angle " + sumAngle);
+		}
+
+		public bool IsInsideOrOnSide(Point O)
+		{
+			if (!this.GetPlane().CheckBelongingOfPoint(O))
+				throw new Exception("Point is not on the plane");
+			double squarePoint = 0, squareResult = 0;
+			
+			for (int i = 0; i < n; i++)
+			{
+				squarePoint += (vertices[(i + 1) % n] - O).CrossProduct(vertices[i] - O).Length();
+				squareResult += (vertices[(i + 1) % n] - vertices[0]).CrossProduct(vertices[i] - vertices[0]).Length();
+			}
+			if (Math.Abs(squarePoint).IsEqual(squareResult))
+				return true;
+			return false;
 		}
 
 		public override string ToString()
