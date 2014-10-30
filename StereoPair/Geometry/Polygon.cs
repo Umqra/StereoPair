@@ -55,13 +55,14 @@ namespace Geometry
 			throw new Exception("Point is not found");
 		}
 
-		public bool IsOverlapped(Polygon a, Plane plane, Point O)
+		public IEnumerable<Point> GetRelevantPoints(Polygon a, Plane plane, Point O)
 		{
 			Polygon pol1 = a.CentralProjectionToPlane(plane, O);
 			Polygon pol2 = this.CentralProjectionToPlane(plane, O);
-			List <Point> points = new List<Point>();
-			points.AddRange(pol1.vertices);
-			points.AddRange(pol2.vertices);
+			foreach (var point in pol1.vertices)
+				yield return point;
+			foreach (var point in pol2.vertices)
+				yield return point;
 			for (int i = 0; i < pol1.vertices.Length; i++)
 			{
 				for (int j = 0; j < pol2.vertices.Length; j++)
@@ -70,13 +71,20 @@ namespace Geometry
 					Segment segm2 = new Segment(pol2.vertices[j], pol2.vertices[(j + 1) % pol2.vertices.Length]);
 					if (segm1.FindIntersection(segm2) != null)
 					{
-						points.Add(segm1.FindIntersection(segm2).A);
-						points.Add(segm1.FindIntersection(segm2).B);
+						Segment intersection = segm1.FindIntersection(segm2);
+						Point A = intersection.A, B = intersection.B;
+							
+						yield return segm1.FindIntersection(segm2).A;
+						if (A != B)
+							yield return segm1.FindIntersection(segm2).B;
 					}
 				}
 			}
+		}
 
-			foreach (Point point in points)
+		public int GetTypeOverlapping(Polygon a, Plane plane, Point O)
+		{
+			foreach (Point point in GetRelevantPoints(a, plane, O))
 			{
 				Line line = new Line(O, (point - O));
 				if (this.GetPlane().CheckBelongingOfLine(line) || a.GetPlane().CheckBelongingOfLine(line))
@@ -88,9 +96,11 @@ namespace Geometry
 				if (B == null || !a.IsInside(B) && !a.IsOnSide(B))
 					continue;
 				if ((A - O).Length().IsGreater((B - O).Length()))
-					return true;
+					return 1;
+				else if ((A - O).Length().IsLess((B - O).Length()))
+					return -1;
 			}
-			return false;
+			return 0;
 		}
 
 		public Point GetBounds()

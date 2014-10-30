@@ -91,21 +91,45 @@ namespace StereoPair
 			topSort[v] = ind++;
 		}
 
+		bool TryFindPath(int n, int start, int end, List<int>[] edges)
+		{
+			List<int> queue = new List<int>();
+			bool[] used = new bool[n];
+			queue.Add(start);
+			used[start] = true;
+			for (int i = 0; i < queue.Count; i++)
+			{
+				int v = queue[i];
+				foreach (int to in edges[v])
+				{
+					if (!used[to])
+					{
+						queue.Add(to);
+						used[to] = true;
+					}
+				}
+			}
+			return used[end];
+		}
+
 		public AppPolygon2D[] GetFramesTopSort(AppPolyhedron polyhedron, Point eye, int ColorMode)
 		{
 			List <int>[] edges = new List<int>[polyhedron.faces.Length];
 			int[] topSort = new int[polyhedron.faces.Length];
 			for (int i = 0; i < topSort.Length; i++)
+			{
 				topSort[i] = -1;
+				edges[i] = new List<int>();
+			}
 			for (int i = 0; i < polyhedron.faces.Length; i++)
 			{
-				edges[i] = new List<int>();
-				for (int j = 0; j < polyhedron.faces.Length; j++)
+				for (int j = i + 1; j < polyhedron.faces.Length; j++)
 				{
-					if (polyhedron.faces[i].IsOverlapped(polyhedron.faces[j], plane, eye))
-					{
+					int typeOverlapping = polyhedron.faces[i].GetTypeOverlapping(polyhedron.faces[j], plane, eye);
+					if (typeOverlapping == 1)
 						edges[i].Add(j);
-					}
+					else if (typeOverlapping == -1)
+						edges[j].Add(i);
 				}
 			}
 
