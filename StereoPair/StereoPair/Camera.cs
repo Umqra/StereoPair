@@ -108,6 +108,8 @@ namespace StereoPair
 				if (face == polygon || facePlane.CheckBelongingOfLine(viewSegment.GetLine()))
 					continue;
 				Point interPoint = facePlane.Intersect(viewSegment.GetLine()); //TODO: something wrong... But now it seems to be ok
+				if (interPoint == null)
+					continue;
 				if ((face.IsOnSide(interPoint) || face.IsInside(interPoint)) && viewSegment.CheckBelongingOfPoint(interPoint))
 					return false;
 			}

@@ -39,6 +39,8 @@ namespace Geometry
 			if (p.n.DotProduct(l.v).IsEqual(0))
 				return null;
 			double k = (p.P.DotProduct(p.n) - l.A.DotProduct(p.n)) / (p.n.DotProduct(l.v));
+			if (!PointOnPlane(l.A + k * l.v, p))
+				throw new Exception("Why point intersect not on plane?!");
 			return l.A + k * l.v;
 		}
 		public static Segment IntersectRaySegment(Ray r, Segment s)

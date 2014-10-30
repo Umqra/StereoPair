@@ -16,7 +16,7 @@ namespace StereoPair
 	{
 		static void Main(string[] args)
 		{
-			Generate.WritePolyhedronToData(10);
+//			Generate.WritePolyhedronToData(10);
 			Reader.ReadData("../../data.txt");
 			int sizeX = 500, sizeY = 500;
 			var form = new ApplicationForm();

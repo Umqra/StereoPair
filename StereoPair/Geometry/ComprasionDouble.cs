@@ -10,7 +10,7 @@ namespace Geometry
 {
 	public static class ComprasionDouble
 	{
-		public const double Epsilon = 1e-8;
+		public const double Epsilon = 1e-6;
 
 		public static int Signum(double a)
 		{
