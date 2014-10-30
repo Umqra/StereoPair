@@ -79,6 +79,59 @@ namespace StereoPair
 			return frames.ToArray();
 		}
 
+		public void TopSort(int v, List<int>[] edges, int[] topSort, ref int ind)
+		{
+			if (topSort[v] != -1)
+				return;
+			topSort[v] = -2;
+			foreach (var to in edges[v])
+			{
+				TopSort(to, edges, topSort, ref ind);
+			}
+			topSort[v] = ind++;
+		}
+
+		public AppPolygon2D[] GetFramesTopSort(AppPolyhedron polyhedron, Point eye, int ColorMode)
+		{
+			List <int>[] edges = new List<int>[polyhedron.faces.Length];
+			int[] topSort = new int[polyhedron.faces.Length];
+			for (int i = 0; i < topSort.Length; i++)
+				topSort[i] = -1;
+			for (int i = 0; i < polyhedron.faces.Length; i++)
+			{
+				edges[i] = new List<int>();
+				for (int j = 0; j < polyhedron.faces.Length; j++)
+				{
+					if (polyhedron.faces[i].IsOverlapped(polyhedron.faces[j], plane, eye))
+					{
+						edges[i].Add(j);
+					}
+				}
+			}
+
+			int ind = 0;
+			for (int i = 0; i < polyhedron.faces.Length; i++)
+			{
+				TopSort(i, edges, topSort, ref ind);
+			}
+			AppPolygon[] faces = Enumerable.Range(0, polyhedron.faces.Length)
+				.OrderBy(x => topSort[x])
+				.Select(x => new AppPolygon(polyhedron.faces[x].n, polyhedron.faces[x].vertices, (ColorMode == 0 ? GetFaceColor((Polygon)polyhedron.faces[x], eye) : polyhedron.ListColors[x])))
+				.ToArray();
+
+			List<AppPolygon2D> frames = new List<AppPolygon2D>();
+			Point yBasis = GeometryOperations.CentralProjectionVectorOnPlane(new Point(0, 1, 0), plane, eye).Normalize(0.1);
+			Point xBasis = plane.GetSecondBasisVector(yBasis).Normalize(0.1);
+			for (int i = 0; i < faces.Length; i++)
+			{
+				Point2D[] converted = faces[i].CentralProjectionToPlane(plane, eye).ConvertTo2D(plane, xBasis, yBasis);
+				AppPolygon2D frame = new AppPolygon2D(converted.Length, converted, (ColorMode == 0 ? GetFaceColor(faces[i], eye) : faces[i].color/*polyhedron.ListColors[i]*/));
+				frames.Add(frame);
+			}
+			frames.Reverse();
+			return frames.ToArray();
+		}
+
 		public Color GetFaceColor(Polygon face, Point eye)
 		{
 			Point pointInside = face.GetRandomPointInside();
@@ -92,8 +145,10 @@ namespace StereoPair
 		{
 			Point[] eyes = GetEyes();
 			AppPolygon2D[][] frames = new AppPolygon2D[2][];
-			frames[0] = GetFrames(polyhedron, eyes[0], ColorMode);
-			frames[1] = GetFrames(polyhedron, eyes[1], ColorMode);
+			//frames[0] = GetFrames(polyhedron, eyes[0], ColorMode);
+			//frames[1] = GetFrames(polyhedron, eyes[1], ColorMode);
+			frames[0] = GetFramesTopSort(polyhedron, eyes[0], ColorMode);
+			frames[1] = GetFramesTopSort(polyhedron, eyes[1], ColorMode);
 			return frames;
 		}
 

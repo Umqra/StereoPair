@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,6 +47,7 @@
     <Compile Include="ApplicationForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="AppPolygon.cs" />
     <Compile Include="AppPolygon2D.cs" />
     <Compile Include="AppPolyhedron.cs" />
     <Compile Include="Camera.cs" />

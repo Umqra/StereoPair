@@ -24,6 +24,8 @@ namespace StereoPair
 		private double autoRotatingAngle = 0;
 		private bool FullscreenMode = false;
 		static private int ColorMode = 0;
+		static private int amountOfDrawingFaces = 0;
+		private static bool incrementMode = false;
 
 		private static Color[] colors = new Color[] { Color.Red, Color.Blue, Color.Green, Color.Gold, Color.Fuchsia, Color.Chartreuse, Color.DodgerBlue, Color.Teal };
 
@@ -63,7 +65,7 @@ namespace StereoPair
 		{
 			//var graphics = Graphics.FromImage(image);
 			e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
-			for (int i = 0; i < polygons.Length; i++)
+			for (int i = 0; (!incrementMode || i < amountOfDrawingFaces) && i < polygons.Length; i++)
 			{
 				Point2D[] vertices = polygons[i].vertices;
 				PointF[] pointsF = new PointF[vertices.Length];
@@ -125,6 +127,7 @@ namespace StereoPair
 			{
 				Random newRandom = new Random();
 				Generate.WritePolyhedronToData(newRandom.Next(20) + 10);
+				amountOfDrawingFaces = 0;
 				Reader.ReadData("../../data.txt");
 			}
 			else if (e.KeyChar == 'f')
@@ -138,6 +141,25 @@ namespace StereoPair
 			else if (e.KeyChar == 'k')
 			{
 				Reader.ReadData("../../cube.txt");
+				amountOfDrawingFaces = 0;
+			}
+			else if (e.KeyChar == 'h')
+			{
+				Reader.ReadData("../../cubeHole.txt");
+				amountOfDrawingFaces = 0;
+			}
+			else if (e.KeyChar == 't')
+			{
+				Reader.ReadData("../../thorus.txt");
+				amountOfDrawingFaces = 0;
+			}
+			else if (e.KeyChar == 'i')
+			{
+				amountOfDrawingFaces++;
+			}
+			else if (e.KeyChar == 'o')
+			{
+				incrementMode = !incrementMode;
 			}
 			Invalidate();
 		}

@@ -37,6 +37,12 @@ namespace Geometry
 		{
 			return GeometryOperations.LineOnPlane(l, this);
 		}
+		/// <summary>
+		/// Throws exceptions if line belongs to plane. Returns null if intersection is empty. 
+		/// </summary>
+		/// <param name="l"></param>
+		/// <param name="p"></param>
+		/// <returns></returns>
 		public Point Intersect(Line l)
 		{
 			return GeometryOperations.IntersectLinePlane(l, this);

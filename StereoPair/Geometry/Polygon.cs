@@ -55,6 +55,44 @@ namespace Geometry
 			throw new Exception("Point is not found");
 		}
 
+		public bool IsOverlapped(Polygon a, Plane plane, Point O)
+		{
+			Polygon pol1 = a.CentralProjectionToPlane(plane, O);
+			Polygon pol2 = this.CentralProjectionToPlane(plane, O);
+			List <Point> points = new List<Point>();
+			points.AddRange(pol1.vertices);
+			points.AddRange(pol2.vertices);
+			for (int i = 0; i < pol1.vertices.Length; i++)
+			{
+				for (int j = 0; j < pol2.vertices.Length; j++)
+				{
+					Segment segm1 = new Segment(pol1.vertices[i], pol1.vertices[(i + 1) % pol1.vertices.Length]);
+					Segment segm2 = new Segment(pol2.vertices[j], pol2.vertices[(j + 1) % pol2.vertices.Length]);
+					if (segm1.FindIntersection(segm2) != null)
+					{
+						points.Add(segm1.FindIntersection(segm2).A);
+						points.Add(segm1.FindIntersection(segm2).B);
+					}
+				}
+			}
+
+			foreach (Point point in points)
+			{
+				Line line = new Line(O, (point - O));
+				if (this.GetPlane().CheckBelongingOfLine(line) || a.GetPlane().CheckBelongingOfLine(line))
+					continue;
+				Point A = this.GetPlane().Intersect(line);
+				if (A == null || !this.IsInside(A) && !this.IsOnSide(A))
+					continue;
+				Point B = a.GetPlane().Intersect(line);
+				if (B == null || !a.IsInside(B) && !a.IsOnSide(B))
+					continue;
+				if ((A - O).Length().IsGreater((B - O).Length()))
+					return true;
+			}
+			return false;
+		}
+
 		public Point GetBounds()
 		{
 			double minX = vertices[0].x, maxX = vertices[0].x, 

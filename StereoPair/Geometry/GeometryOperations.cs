@@ -32,6 +32,12 @@ namespace Geometry
 					PointOnRay(A, new Ray(s.B, s.A - s.B));
 		}
 
+		/// <summary>
+		/// Throws exceptions if line belongs to plane. Returns null if intersection is empty. 
+		/// </summary>
+		/// <param name="l"></param>
+		/// <param name="p"></param>
+		/// <returns></returns>
 		public static Point IntersectLinePlane(Line l, Plane p)
 		{
 			if (p.CheckBelongingOfLine(l))
